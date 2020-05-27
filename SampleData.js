@@ -1,3 +1,196 @@
+const performanceData = `{
+    "duration": 1800,
+    "is_class_plan_shown": true,
+    "segment_list": [
+        {
+            "id": "025341959f054b1e8de56c4340f3f7e2",
+            "length": 660,
+            "start_time_offset": 0,
+            "icon_url": "https://s3.amazonaws.com/static-cdn.pelotoncycle.com/segment-icons/warmup.png",
+            "intensity_in_mets": 3.5,
+            "metrics_type": "cycling",
+            "icon_name": "warmup",
+            "icon_slug": "warmup",
+            "name": "Warmup"
+        },
+        {
+            "id": "73b4de1c6b9d4643a1270599048d5478",
+            "length": 1082,
+            "start_time_offset": 660,
+            "icon_url": "https://s3.amazonaws.com/static-cdn.pelotoncycle.com/segment-icons/cycling.png",
+            "intensity_in_mets": 6.0,
+            "metrics_type": "cycling",
+            "icon_name": "cycling",
+            "icon_slug": "cycling",
+            "name": "Cycling"
+        },
+        {
+            "id": "e93f915a83224b3c81f56b55ffb6df50",
+            "length": 58,
+            "start_time_offset": 1742,
+            "icon_url": "https://s3.amazonaws.com/static-cdn.pelotoncycle.com/segment-icons/cooldown.png",
+            "intensity_in_mets": 3.5,
+            "metrics_type": "cycling",
+            "icon_name": "cooldown",
+            "icon_slug": "cooldown",
+            "name": "Cool Down"
+        }
+    ],
+    "seconds_since_pedaling_start": [
+        2,
+        1799
+    ],
+    "average_summaries": [
+        {
+            "display_name": "Avg Output",
+            "display_unit": "watts",
+            "value": 202,
+            "slug": "avg_output"
+        },
+        {
+            "display_name": "Avg Cadence",
+            "display_unit": "rpm",
+            "value": 81,
+            "slug": "avg_cadence"
+        },
+        {
+            "display_name": "Avg Resistance",
+            "display_unit": "%",
+            "value": 51,
+            "slug": "avg_resistance"
+        },
+        {
+            "display_name": "Avg Speed",
+            "display_unit": "kph",
+            "value": 34.5,
+            "slug": "avg_speed"
+        }
+    ],
+    "summaries": [
+        {
+            "display_name": "Total Output",
+            "display_unit": "kj",
+            "value": 362,
+            "slug": "total_output"
+        },
+        {
+            "display_name": "Distance",
+            "display_unit": "km",
+            "value": 17.22,
+            "slug": "distance"
+        },
+        {
+            "display_name": "Calories",
+            "display_unit": "kcal",
+            "value": 379,
+            "slug": "calories"
+        }
+    ],
+    "metrics": [
+        {
+            "display_name": "Output",
+            "display_unit": "watts",
+            "max_value": 258,
+            "average_value": 202,
+            "values": [
+                244,
+                154
+            ],
+            "slug": "output"
+        },
+        {
+            "display_name": "Cadence",
+            "display_unit": "rpm",
+            "max_value": 100,
+            "average_value": 81,
+            "values": [
+                100,
+                83
+            ],
+            "slug": "cadence"
+        },
+        {
+            "display_name": "Resistance",
+            "display_unit": "%",
+            "max_value": 61,
+            "average_value": 51,
+            "values": [
+                61,
+                45
+            ],
+            "slug": "resistance"
+        },
+        {
+            "display_name": "Speed",
+            "display_unit": "kph",
+            "max_value": 37.9,
+            "average_value": 34.5,
+            "values": [
+                37.1,
+                31.1
+            ],
+            "slug": "speed"
+        },
+        {
+            "display_name": "Heart Rate",
+            "display_unit": "bpm",
+            "max_value": 140,
+            "average_value": 133,
+            "values": [
+                140,
+                130
+            ],
+            "slug": "heart_rate",
+            "zones": [
+                {
+                    "display_name": "Zone 1",
+                    "slug": "zone1",
+                    "range": "<112 bpm",
+                    "duration": 0,
+                    "max_value": 111,
+                    "min_value": 0
+                },
+                {
+                    "display_name": "Zone 2",
+                    "slug": "zone2",
+                    "range": "112-128 bpm",
+                    "duration": 276,
+                    "max_value": 128,
+                    "min_value": 112
+                },
+                {
+                    "display_name": "Zone 3",
+                    "slug": "zone3",
+                    "range": "129-146 bpm",
+                    "duration": 1523,
+                    "max_value": 146,
+                    "min_value": 129
+                },
+                {
+                    "display_name": "Zone 4",
+                    "slug": "zone4",
+                    "range": "147-163 bpm",
+                    "duration": 0,
+                    "max_value": 163,
+                    "min_value": 147
+                },
+                {
+                    "display_name": "Zone 5",
+                    "slug": "zone5",
+                    "range": ">164 bpm",
+                    "duration": 0,
+                    "max_value": 173,
+                    "min_value": 164
+                }
+            ],
+            "missing_data_duration": 1
+        }
+    ],
+    "has_apple_watch_metrics": false,
+    "location_data": [],
+    "is_location_data_accurate": null,
+    "splits_data": []
+}`
 const sampleData = `Workout Timestamp,Live/On-Demand,Instructor Name,Length (minutes),Fitness Discipline,Type,Title,Class Timestamp,Total Output,Avg. Watts,Avg. Resistance,Avg. Cadence (RPM),Avg. Speed (kph),Distance (km),Calories Burned,Avg. Heartrate,Avg. Incline,Avg. Pace (min/km)
 2018-03-20 19:58 (PDT),On Demand,Jennifer Jacobs,30,Cycling,Beginner,30 min Advanced Beginner Ride,2017-10-03 07:21 (PDT),303,169,47%,82,31.61,15.79,370,128.53,,
 2018-03-21 20:12 (PDT),On Demand,Ally Love,30,Cycling,Theme,30 min Pop Ride,2018-03-14 10:19 (PDT),273,152,46%,79,30.32,15.14,453,146.40,,
