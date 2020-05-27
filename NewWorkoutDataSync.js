@@ -40,7 +40,7 @@ const MetricProperties = [
 function updateRecentWorkoutData() {
   try {
     var spreadsheet = getSpreadsheetOrDefault();
-    var sheet = spreadsheet.getSheetByName('Workout Data Test');
+    var sheet = spreadsheet.getSheetByName(WorkoutDataSheetName);
     var lastWorkoutId = sheet.getRange(2, 1).getValue();
     var workoutData = getWorkoutData(spreadsheet, lastWorkoutId, 5);
     
@@ -69,14 +69,14 @@ function updateRecentWorkoutData() {
 function updateAllWorkoutData() {
   try {
     var spreadsheet = getSpreadsheetOrDefault();
-    var sheet = spreadsheet.getSheetByName('Workout Data Test');    
+    var sheet = spreadsheet.getSheetByName(WorkoutDataSheetName);    
 
     // Create the header row 
     var rows = [WorkoutProperties.concat(MetricProperties)];
     sheet.getRange(1, 1, rows.length, rows[0].length).setValues(rows);  
     
     // Add the new workouts
-    var workoutData = getWorkoutData(spreadsheet);    
+    var workoutData = getWorkoutData(spreadsheet, '', 500);    
     var newWorkouts = workoutData.workouts;
     sheet.getRange(2, 1, newWorkouts.length, newWorkouts[0].length).setValues(newWorkouts);
             
@@ -94,7 +94,7 @@ function updateAllWorkoutData() {
   
 }
 
-function getWorkoutData(spreadsheet, lastWorkoutId = null, limit = 500) {
+function getWorkoutData(spreadsheet, lastWorkoutId, limit) {
   var properties = getSpreadsheetProperties(spreadsheet, 2);
   var userIdAndCookie = authorize(properties.username, properties.password);
   
