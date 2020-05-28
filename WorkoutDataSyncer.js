@@ -137,8 +137,11 @@ WorkoutDataSyncer.prototype = {
         expectedTotal = workoutData.total; 
         first = false;
       }    
-      
-      console.log('Processed page ' + page + ' containing ' + processedWorkouts.length + ' workouts.'); 
+     
+      // Log progress if syncing all workouts (which is case when there is no last workout Id)
+      if (this.lastWorkoutId != null) {
+        console.log('Processed page ' + page + ' containing ' + processedWorkouts.length + ' workouts.'); 
+      }
     }
     while (!foundWorkoutId && (page < page_count));
     

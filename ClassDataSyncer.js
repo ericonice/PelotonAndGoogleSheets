@@ -119,7 +119,10 @@ ClassDataSyncer.prototype = {
         first = false;
       }    
       
-      console.log('Processed page ' + page + ' containing ' + processedClasses.length + ' classes.'); 
+      // Log progress if syncing all classes (which is case when there is no last class Id)
+      if (this.lastClassId != null) {
+        console.log('Processed page ' + page + ' containing ' + processedClasses.length + ' classes.'); 
+      }
     }
     while (!foundRideId && (page < page_count));
     
