@@ -43,9 +43,9 @@ function WorkoutDataSyncer(spreadsheetId, limit, useSampleData = false) {
 
 WorkoutDataSyncer.prototype = {
   initialize: function() {
-    this.spreadsheet = getSpreadsheetOrDefault(this.spreadsheetId);
-    this.workoutSheet = this.spreadsheet.getSheetByName(WorkoutDataSheetName);
-    this.properties = getSpreadsheetProperties(this.spreadsheet, 4);
+    this.spreadsheet = new Spreadsheet(this.spreadsheetId);
+    this.workoutSheet = this.spreadsheet.workoutSheet;
+    this.properties = this.spreadsheet.getProperties();
     this.username = this.properties.username;
     this.password = this.properties.password;
     this.login();
@@ -74,10 +74,10 @@ WorkoutDataSyncer.prototype = {
     // Update properties
     var refreshDate = new Date().toLocaleString();
     var currentWorkoutCount = this.workoutSheet.getLastRow() - 1;
-    setSpreadsheetProperty(this.spreadsheet, 'lastWorkoutRefreshDate', refreshDate);
-    setSpreadsheetProperty(this.spreadsheet, 'lastWorkoutTotal', currentWorkoutCount);
+    this.spreadsheet.setProperty('lastWorkoutRefreshDate', refreshDate);
+    this.spreadsheet.setProperty('lastWorkoutTotal', currentWorkoutCount);
 
-    var results = {
+    return {
       operation: 'Update recent workouts',
       previousRefreshDate : this.properties.lastWorkoutRefreshDate, 
       previousWorkoutCount : this.properties.lastWorkoutTotal, 
@@ -85,8 +85,6 @@ WorkoutDataSyncer.prototype = {
       expectedTotal: workoutData.expectedTotal, 
       actualTotal: currentWorkoutCount
     };
-
-    return results;    
   },
   
   updateAllWorkoutData: function() {
@@ -98,14 +96,21 @@ WorkoutDataSyncer.prototype = {
     var workoutData = this.getWorkoutData();    
     var newWorkouts = workoutData.workouts;
     this.workoutSheet.getRange(2, 1, newWorkouts.length, newWorkouts[0].length).setValues(newWorkouts);
-            
-    var results = {
-      operation: 'Update all workouts',
-      expectedTotal: workoutData.expectedTotal,
-      actualTotal: total
-    };
 
-    console.log(JSON.stringify(results, null, 2));          
+    // Update properties
+    var refreshDate = new Date().toLocaleString();
+    var currentWorkoutCount = this.workoutSheet.getLastRow() - 1;
+    this.spreadsheet.setProperty('lastWorkoutRefreshDate', refreshDate);
+    this.spreadsheet.setProperty('lastWorkoutTotal', currentWorkoutCount);
+
+    return {
+      operation: 'Update all workouts',
+      previousRefreshDate : this.properties.lastWorkoutRefreshDate, 
+      previousWorkoutCount : this.properties.lastWorkoutTotal, 
+      addedWorkouts: newWorkouts.length,
+      expectedTotal: workoutData.expectedTotal, 
+      actualTotal: currentWorkoutCount
+    };
   },
 
   getWorkoutData: function() {    

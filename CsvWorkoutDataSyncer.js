@@ -6,10 +6,11 @@ function CsvWorkoutDataSyncer(spreadsheetId, useSampleData = false) {
 CsvWorkoutDataSyncer.prototype = {
 
   updateWorkoutData: function () {
-    var spreadsheet = getSpreadsheetOrDefault(this.spreadsheetId);
+    var spreadsheet = new Spreadsheet(this.spreadsheetId);
   
     // Get properties
-    var properties = getSpreadsheetProperties(spreadsheet, 4);
+    var properties = spreadsheet.getProperties();
+    
     this.username = properties.username;
     this.password = properties.password;
     var previousRefreshDate = properties.lastWorkoutRefreshDate;
@@ -23,8 +24,8 @@ CsvWorkoutDataSyncer.prototype = {
     // Update properties
     var refreshDate = new Date();
     var currentWorkoutCount = workoutData.length - 1;
-    setSpreadsheetProperty(spreadsheet, 'lastWorkoutRefreshDate', refreshDate);
-    setSpreadsheetProperty(spreadsheet, 'lastWorkoutTotal', currentWorkoutCount);
+    spreadsheet.setProperty('lastWorkoutRefreshDate', refreshDate);
+    spreadsheet.setProperty('lastWorkoutTotal', currentWorkoutCount);
     
     var results = {
       status : "Success", 
@@ -36,8 +37,7 @@ CsvWorkoutDataSyncer.prototype = {
     };
     
     // Replace all data with new Peloton data 
-    var workoutSheet = spreadsheet.getSheetByName(CsvWorkoutDataSheetName);
-    workoutSheet.getRange(1, 1, workoutData.length, workoutData[0].length).setValues(workoutData);
+    spreadsheet.csvWorkoutSheet.getRange(1, 1, workoutData.length, workoutData[0].length).setValues(workoutData);
     
     return results;
   },
@@ -68,24 +68,6 @@ function test() {
  
 }
 
-function doGet(request) {
-  console.log('Updating "Peloton Workout Data" spreadsheet with the latest data:' + JSON.stringify(request, null, 2));
-  
-  var syncer = new CsvWorkoutDataSync();
-
-  // Get the spreadsheet
-  var parameters = request.parameter;
-  syncer,spreadsheetId = request.parameter.id;
-  syncer.useSampleData = ('useSampleData' in parameters)
-    ? request.parameter.useSampleData
-    : false;
-    
-  // Update spreadsheet
-  var results = syncer.updateWorkoutData();
-  console.log('Updated spreadsheet ' + spreadsheetId + ': ' + JSON.stringify(results, null, 2));
-  
-  return ContentService.createTextOutput(JSON.stringify(results, null, 2) ).setMimeType(ContentService.MimeType.JSON);
-}
 
 
 
