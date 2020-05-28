@@ -2,7 +2,7 @@ const SpreadsheetId = '1BtKc-EUZnRyii4v8qL-0wxczzAwcV31EBVQpzT18Ax0';
 const PropertiesSheetName = 'Properties';
 const ClassDataSheetName = 'Class Data';
 const WorkoutDataSheetName = 'Workout Data';
-
+const CsvWorkoutDataSheetName = 'Workout Data (CSV)'
 
 function getSpreadsheetProperties(spreadsheet, numberOfProperties = 2) {
   var propertiesSheet = spreadsheet.getSheetByName(PropertiesSheetName);
