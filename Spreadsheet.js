@@ -10,10 +10,12 @@ function Spreadsheet(spreadsheetId) {
   this.propertiesSheet = this.spreadsheet.getSheetByName(PropertiesSheetName);
   this.workoutSheet = this.spreadsheet.getSheetByName(WorkoutDataSheetName);
   this.csvWorkoutSheet = this.spreadsheet.getSheetByName(CsvWorkoutDataSheetName);
+  this.classSheet = this.spreadsheet.getSheetByName(ClassDataSheetName);
+
 }
 
 Spreadsheet.prototype = {
-  getProperties: function(numberOfProperties = 4) {
+  getProperties: function(numberOfProperties = 6) {
     var propertiesSheet = this.spreadsheet.getSheetByName(PropertiesSheetName);
     
     var properties = {};

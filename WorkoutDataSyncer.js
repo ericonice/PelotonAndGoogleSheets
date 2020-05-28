@@ -72,7 +72,7 @@ WorkoutDataSyncer.prototype = {
     }
 
     // Update properties
-    var refreshDate = new Date().toLocaleString();
+    var refreshDate = new Date().toString();
     var currentWorkoutCount = this.workoutSheet.getLastRow() - 1;
     this.spreadsheet.setProperty('lastWorkoutRefreshDate', refreshDate);
     this.spreadsheet.setProperty('lastWorkoutTotal', currentWorkoutCount);
@@ -98,7 +98,7 @@ WorkoutDataSyncer.prototype = {
     this.workoutSheet.getRange(2, 1, newWorkouts.length, newWorkouts[0].length).setValues(newWorkouts);
 
     // Update properties
-    var refreshDate = new Date().toLocaleString();
+    var refreshDate = new Date().toString();
     var currentWorkoutCount = this.workoutSheet.getLastRow() - 1;
     this.spreadsheet.setProperty('lastWorkoutRefreshDate', refreshDate);
     this.spreadsheet.setProperty('lastWorkoutTotal', currentWorkoutCount);
@@ -154,7 +154,6 @@ WorkoutDataSyncer.prototype = {
     var data = workoutData.data;
     
     for (let d of data) {
-      var workoutId = d.id;
       if (d.id == this.lastWorkoutId) {
         break;
       }
