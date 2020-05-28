@@ -139,7 +139,7 @@ WorkoutDataSyncer.prototype = {
       }    
      
       // Log progress if syncing all workouts (which is case when there is no last workout Id)
-      if (this.lastWorkoutId != null) {
+      if (this.lastWorkoutId == null) {
         console.log('Processed page ' + page + ' containing ' + processedWorkouts.length + ' workouts.'); 
       }
     }

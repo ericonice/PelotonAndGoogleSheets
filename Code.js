@@ -10,23 +10,27 @@ function doGet(request) {
   
   // Update the workout (csv) spreadsheet.  
   // This can be removed once report is converted to non-csv datasource.
-  var csvSyncer = new CsvWorkoutDataSyncer();
-  csvSyncer.spreadsheetId = spreadsheetId;
-  csvSyncer.useSampleData = useSampleData;
-  var csvResults = csvSyncer.updateWorkoutData();
-  console.log('Updated workout data (csv) for spreadsheet' + spreadsheetId + ': ' + JSON.stringify(csvResults, null, 2));
+  {
+    let syncer = new CsvWorkoutDataSyncer();
+    syncer.spreadsheetId = spreadsheetId;
+    syncer.useSampleData = useSampleData;
+    let results = syncer.updateWorkoutData();
+    console.log('Updated workout data (csv) for spreadsheet' + spreadsheetId + ': ' + JSON.stringify(results, null, 2));
+  }
 
-  // Update the workout spreadsheet
-  var results = updateRecentWorkouts(spreadsheetId, useSampleData);  
-  return ContentService.createTextOutput(JSON.stringify(results, null, 2) ).setMimeType(ContentService.MimeType.JSON);
-}
-
-function updateRecentWorkouts(spreadsheetId, useSampleData) {
+  // Update the workout spreadsheet.  
   var syncer = new WorkoutDataSyncer(spreadsheetId, 5, useSampleData);
   syncer.initialize();
   var results = syncer.updateRecentWorkoutData();
+  console.log('Updated workout data for spreadsheet' + spreadsheetId + ': ' + JSON.stringify(results, null, 2));
+  return ContentService.createTextOutput(JSON.stringify(results, null, 2) ).setMimeType(ContentService.MimeType.JSON);
+}
+
+function updateRecentWorkouts() {
+  var syncer = new WorkoutDataSyncer(SpreadsheetId, 5);
+  syncer.initialize();
+  var results = syncer.updateRecentWorkoutData();
   console.log('Update Recent Workouts: ' + JSON.stringify(results, null, 2));  
-  return results;
 }
 
 function updateAllWorkouts() {
