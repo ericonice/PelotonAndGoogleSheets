@@ -41,15 +41,25 @@ ClassDataSyncer.prototype = {
     this.cookie = userIdAndCookie.cookie;
   },
   
+  verify: function(expectedTotal, actualTotal) {
+    if (expectedTotal != actualTotal) {
+      throw 'Expected classes (' + expectedTotal + ') is different from actual classes (' + actualTotal + ')';
+    }
+  },
+
   updateRecentClassData: function() {
     this.lastClassId = this.classSheet.getRange(2, 1).getValue();
+    if (this.lastClassId == null) {
+      throw 'No previous class.  Please first update all classes.'
+    }
+    
     var classData = this.getClassData();
     
     // Insert the new classes at the beginning 
     var newClasses = classData.classes;
     if (newClasses.length > 0) {
-      this.newClasses.insertRows(2, newClasses.length);
-      this.newClasses.getRange(2, 1, newClasses.length, newClasses[0].length).setValues(newWorkouts);
+      this.classSheet.insertRows(2, newClasses.length);
+      this.classSheet.getRange(2, 1, newClasses.length, newClasses[0].length).setValues(newClasses);
     }
 
     // Update properties
@@ -57,6 +67,8 @@ ClassDataSyncer.prototype = {
     var currentClassCount = this.classSheet.getLastRow() - 1;
     this.spreadsheet.setProperty('lastClassRefreshDate', refreshDate);
     this.spreadsheet.setProperty('lastClassTotal', currentClassCount);
+
+    this.verify(classData.expectedTotal, currentClassCount);
 
     return {
       operation: 'Update recent classes',
@@ -71,7 +83,7 @@ ClassDataSyncer.prototype = {
   updateAllClassData: function() {
     // Create the header row 
     var rows = [ClassProperties];
-    this.newClasses.getRange(1, 1, rows.length, rows[0].length).setValues(rows);  
+    this.classSheet.getRange(1, 1, rows.length, rows[0].length).setValues(rows);  
     
     // Add the new classes
     var classData = this.getClassData();    
@@ -83,6 +95,8 @@ ClassDataSyncer.prototype = {
     var currentClassCount = this.classSheet.getLastRow() - 1;
     this.spreadsheet.setProperty('lastClassRefreshDate', refreshDate);
     this.spreadsheet.setProperty('lastClassTotal', currentClassCount);
+
+    this.verify(classData.expectedTotal, currentClassCount);
 
     return {
       operation: 'Update all classes',
@@ -184,7 +198,7 @@ ClassDataSyncer.prototype = {
   },
 
   getClassDataResponse: function(page) {
-    var url = 'https://api.onepeloton.com/api/v2/ride/archived?browse_category=cycling&sort_by=original_air_time&desc=false&page=' + page + '&limit=' + this.limit;    
+    var url = 'https://api.onepeloton.com/api/v2/ride/archived?browse_category=cycling&sort_by=original_air_time&true=false&page=' + page + '&limit=' + this.limit;    
     var header = {"Cookie": this.cookie};
     var options = {"headers": header};
     var response = UrlFetchApp.fetch(url, options);
