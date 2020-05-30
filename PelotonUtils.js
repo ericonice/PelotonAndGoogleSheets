@@ -1,6 +1,10 @@
 const PELOTON_AUTH_URL = 'https://api.onepeloton.com/auth/login'
 
 function authorize(username, password) {
+  if ((username == null) || (password == null)) {
+    throw 'Username or password not set. Please make sure to set the username and password in the Properties sheet';
+  }
+
   // Get the user_id and cookie needed to invoke the API to get the workout data
   var payload =
       {
@@ -39,3 +43,4 @@ function authorize(username, password) {
     cookie : cookie 
   };
 }
+

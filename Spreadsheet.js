@@ -1,8 +1,11 @@
-const SpreadsheetId = '1BtKc-EUZnRyii4v8qL-0wxczzAwcV31EBVQpzT18Ax0';
+const JianSpreadsheetId = '1Y3cZkWd5iiFmHFts0cvnuXBQC8Yl9uKl40UTjfmT1Nk';
+const EricSpreadsheetId = '1BtKc-EUZnRyii4v8qL-0wxczzAwcV31EBVQpzT18Ax0';
+const SpreadSheetIds = [EricSpreadsheetId, JianSpreadsheetId];
 const PropertiesSheetName = 'Properties';
 const ClassDataSheetName = 'Class Data';
 const WorkoutDataSheetName = 'Workout Data';
 const CsvWorkoutDataSheetName = 'Workout Data (CSV)'
+const MaxProperties = 10;
 
 function Spreadsheet(spreadsheetId) {
   this.spreadsheetId = spreadsheetId;
@@ -27,19 +30,22 @@ Spreadsheet.prototype = {
   },
 
   setProperty: function(key, value) {
-    var propertyKeys = this.propertiesSheet.getRange(1, 1, 10).getValues().flat(1);
-    var row = propertyKeys.indexOf(key);
+    var propertyKeys = this.propertiesSheet.getRange(1, 1, MaxProperties).getValues().flat(1);
+    var index = propertyKeys.indexOf(key);
     
-    if (row == -1) {
-      throw 'Unable to find property ' + key;
+    // Create the row if it does not already exist
+    if (index == -1) {
+      index = this.propertiesSheet.getLastRow();
+      this.propertiesSheet.getRange(index + 1, 1).setValue(key);
     }
     
-    this.propertiesSheet.getRange(row + 1, 2).setValue(value);
+    // Lookup 0 based, sheets 1 based, so add 1 to index
+    this.propertiesSheet.getRange(index + 1, 2).setValue(value);
   },
 
   getSpreadsheetOrDefault: function() {
     if (this.spreadsheetId == null) {
-      this.spreadsheetId = SpreadsheetId;
+      this.spreadsheetId = SpreadSheetIds[0];
     }
   
     return SpreadsheetApp.openById(this.spreadsheetId);

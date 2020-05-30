@@ -6,6 +6,7 @@ const WorkoutProperties = [
   'title',
   'fitness_discipline',
   'ride_type',
+  'powerzone_type',
   'instructor',
   'length',
   'difficulty_estimate',
@@ -60,8 +61,18 @@ WorkoutDataSyncer.prototype = {
     }
   },
 
+  verify: function(expectedTotal, actualTotal) {
+    if (expectedTotal != actualTotal) {
+      throw 'Expected workouts (' + expectedTotal + ') is different from actual workouts (' + actualTotal + ')';
+    }
+  },
+  
   updateRecentWorkoutData: function() {
     this.lastWorkoutId = this.workoutSheet.getRange(2, 1).getValue();
+    if (this.lastWorkoutId == null) {
+      throw 'No previous workouts.  Please first update all workouts.'
+    }
+
     var workoutData = this.getWorkoutData();
     
     // Insert the new workouts at the beginning 
@@ -77,6 +88,8 @@ WorkoutDataSyncer.prototype = {
     this.spreadsheet.setProperty('lastWorkoutRefreshDate', refreshDate);
     this.spreadsheet.setProperty('lastWorkoutTotal', currentWorkoutCount);
 
+    this.verify(workoutData.expectedTotal, currentWorkoutCount);
+    
     return {
       operation: 'Update recent workouts',
       previousRefreshDate : this.properties.lastWorkoutRefreshDate, 
@@ -102,6 +115,8 @@ WorkoutDataSyncer.prototype = {
     var currentWorkoutCount = this.workoutSheet.getLastRow() - 1;
     this.spreadsheet.setProperty('lastWorkoutRefreshDate', refreshDate);
     this.spreadsheet.setProperty('lastWorkoutTotal', currentWorkoutCount);
+
+    this.verify(workoutData.expectedTotal, currentWorkoutCount);
 
     return {
       operation: 'Update all workouts',
@@ -190,8 +205,11 @@ WorkoutDataSyncer.prototype = {
           case 'fitness_discipline':
             row.push(d.fitness_discipline);
             break;
+          case 'powerzone_type':
+            row.push(this.getPowerzoneType(ride.title));
+            break;
           default:      
-          row.push(ride[value]);
+            row.push(ride[value]);
         }
       }
         
@@ -293,6 +311,26 @@ WorkoutDataSyncer.prototype = {
     rideTypes.forEach(rideType => {
       this.rideTypesById[rideType.id] = rideType.name;
     });
+  },
+    
+  getPowerzoneType: function(title) {
+    if (title.includes('FTP Test')) {
+      return 'FTP Test';
+    }
+    
+    if (title.includes('Power Zone')) {
+      if (title.includes('Endurance')) {
+        return 'PZE';
+      } 
+      
+      if (title.includes('Max')) {
+        return 'PZ Max';
+      } 
+      
+      return 'PZ';
+    }
+    
+    return 'Other';
   }
 }
 

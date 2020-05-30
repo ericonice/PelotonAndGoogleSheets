@@ -8,16 +8,6 @@ function doGet(request) {
     ? request.parameter.useSampleData
     : false;
   
-  // Update the workout (csv) spreadsheet.  
-  // This can be removed once report is converted to non-csv datasource.
-  {
-    let syncer = new CsvWorkoutDataSyncer();
-    syncer.spreadsheetId = spreadsheetId;
-    syncer.useSampleData = useSampleData;
-    let results = syncer.updateWorkoutData();
-    console.log('Updated workout data (csv) for spreadsheet' + spreadsheetId + ': ' + JSON.stringify(results, null, 2));
-  }
-
   // Update the workout spreadsheet.  
   var syncer = new WorkoutDataSyncer(spreadsheetId, 5, useSampleData);
   syncer.initialize();
@@ -27,30 +17,34 @@ function doGet(request) {
 }
 
 function updateRecentWorkouts() {
-  var syncer = new WorkoutDataSyncer(SpreadsheetId, 5);
-  syncer.initialize();
-  var results = syncer.updateRecentWorkoutData();
-  console.log('Update Recent Workouts: ' + JSON.stringify(results, null, 2));  
+  for (let spreadsheetId of SpreadSheetIds) {
+    var syncer = new WorkoutDataSyncer(EricSpreadsheetId, 5);
+    syncer.initialize();
+    var results = syncer.updateRecentWorkoutData();
+    console.log('Update Recent Workouts for spreadsheet (' + spreadsheetId + '): ' + JSON.stringify(results, null, 2));  
+  }
 }
 
 function updateAllWorkouts() {
   // Fetch 100 workouts at a time when loading all of the workouts
-  var syncer = new WorkoutDataSyncer(SpreadsheetId, 100, false);
+  var syncer = new WorkoutDataSyncer(EricSpreadsheetId, 100, false);
   syncer.initialize();
   var results = syncer.updateAllWorkoutData();
   console.log('Update All Workouts: ' + JSON.stringify(results, null, 2));  
 }
 
 function updateRecentClasses() {
-  var syncer = new ClassDataSyncer(SpreadsheetId, 5);
-  syncer.initialize();
-  var results = syncer.updateRecentClassData();
-  console.log('Update Recent Classes: ' + JSON.stringify(results, null, 2));  
+  for (let spreadsheetId of SpreadSheetIds) {
+    var syncer = new ClassDataSyncer(JianSpreadsheetId, 5);
+    syncer.initialize();
+    var results = syncer.updateRecentClassData();
+    console.log('Update Recent Classes for spreadsheet (' + spreadsheetId + '): ' + JSON.stringify(results, null, 2));  
+  }
 }
 
 function updateAllClasses() {
   // Fetch 500 classes at a time when loading all of the workouts
-  var syncer = new ClassDataSyncer(SpreadsheetId, 500);
+  var syncer = new ClassDataSyncer(JianSpreadsheetId, 500);
   syncer.initialize();
   var results = syncer.updateAllClassData();
   console.log('Update All Classes: ' + JSON.stringify(results, null, 2));  
