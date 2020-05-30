@@ -63,7 +63,9 @@ WorkoutDataSyncer.prototype = {
 
   verify: function(expectedTotal, actualTotal) {
     if (expectedTotal != actualTotal) {
-      throw 'Expected workouts (' + expectedTotal + ') is different from actual workouts (' + actualTotal + ')';
+      let message = 'Expected workouts (' + expectedTotal + ') is different from actual workouts (' + actualTotal + ')';
+      console.log(message);
+      // throw message;
     }
   },
   
