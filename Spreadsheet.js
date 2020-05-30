@@ -1,6 +1,3 @@
-const JianSpreadsheetId = '1Y3cZkWd5iiFmHFts0cvnuXBQC8Yl9uKl40UTjfmT1Nk';
-const EricSpreadsheetId = '1BtKc-EUZnRyii4v8qL-0wxczzAwcV31EBVQpzT18Ax0';
-const SpreadSheetIds = [EricSpreadsheetId, JianSpreadsheetId];
 const PropertiesSheetName = 'Properties';
 const ClassDataSheetName = 'Class Data';
 const WorkoutDataSheetName = 'Workout Data';
@@ -14,7 +11,6 @@ function Spreadsheet(spreadsheetId) {
   this.workoutSheet = this.spreadsheet.getSheetByName(WorkoutDataSheetName);
   this.csvWorkoutSheet = this.spreadsheet.getSheetByName(CsvWorkoutDataSheetName);
   this.classSheet = this.spreadsheet.getSheetByName(ClassDataSheetName);
-
 }
 
 Spreadsheet.prototype = {

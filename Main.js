@@ -18,7 +18,7 @@ function doGet(request) {
 
 function updateRecentWorkouts() {
   for (let spreadsheetId of SpreadSheetIds) {
-    var syncer = new WorkoutDataSyncer(EricSpreadsheetId, 5);
+    var syncer = new WorkoutDataSyncer(spreadsheetId, 5);
     syncer.initialize();
     var results = syncer.updateRecentWorkoutData();
     console.log('Update Recent Workouts for spreadsheet (' + spreadsheetId + '): ' + JSON.stringify(results, null, 2));  
@@ -26,8 +26,12 @@ function updateRecentWorkouts() {
 }
 
 function updateAllWorkouts() {
+  if (!UpdateAllSpreadsheetId) {
+    console.log('Update All Spreadsheet Id not set');
+    return;
+  }
   // Fetch 100 workouts at a time when loading all of the workouts
-  var syncer = new WorkoutDataSyncer(EricSpreadsheetId, 100, false);
+  var syncer = new WorkoutDataSyncer(UpdateAllSpreadsheetId, 100, false);
   syncer.initialize();
   var results = syncer.updateAllWorkoutData();
   console.log('Update All Workouts: ' + JSON.stringify(results, null, 2));  
@@ -35,7 +39,7 @@ function updateAllWorkouts() {
 
 function updateRecentClasses() {
   for (let spreadsheetId of SpreadSheetIds) {
-    var syncer = new ClassDataSyncer(JianSpreadsheetId, 5);
+    var syncer = new ClassDataSyncer(spreadsheetId, 5);
     syncer.initialize();
     var results = syncer.updateRecentClassData();
     console.log('Update Recent Classes for spreadsheet (' + spreadsheetId + '): ' + JSON.stringify(results, null, 2));  
@@ -43,8 +47,12 @@ function updateRecentClasses() {
 }
 
 function updateAllClasses() {
+  if (!UpdateAllSpreadsheetId) {
+    console.log('Update All Spreadsheet Id not set');
+    return;
+  }
   // Fetch 500 classes at a time when loading all of the workouts
-  var syncer = new ClassDataSyncer(JianSpreadsheetId, 500);
+  var syncer = new ClassDataSyncer(UpdateAllSpreadsheetId, 500);
   syncer.initialize();
   var results = syncer.updateAllClassData();
   console.log('Update All Classes: ' + JSON.stringify(results, null, 2));  
