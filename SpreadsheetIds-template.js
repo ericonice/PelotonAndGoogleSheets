@@ -5,4 +5,3 @@
 
 // The following 2 constants are referenced in other files. Don't rename.
 // const SpreadSheetIds = [User1SpreadsheetId, User2SpreadsheetId];
-// const UpdateAllSpreadsheetId = null; // or set it to a valid id.
