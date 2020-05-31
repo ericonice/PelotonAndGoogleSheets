@@ -44,3 +44,23 @@ function authorize(username, password) {
   };
 }
 
+function getPowerzoneType(title) {
+  if (title.includes('FTP Test')) {
+    return 'FTP Test';
+  }
+  
+  if (title.includes('Power Zone')) {
+    if (title.includes('Endurance')) {
+      return 'PZE';
+    } 
+    
+    if (title.includes('Max')) {
+      return 'PZ Max';
+    } 
+    
+    return 'PZ';
+  }
+  
+  return 'Other';
+}
+

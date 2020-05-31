@@ -2,6 +2,7 @@ const ClassProperties = [
   'ride_id',
   'original_air_time',
   'ride_type',
+  'powerzone_type',
   'fitness_discipline',
   'title',
   'instructor',
@@ -185,6 +186,9 @@ ClassDataSyncer.prototype = {
             break;
           case 'ride_id':
             row.push(d.id);
+            break;
+          case 'powerzone_type':
+            row.push(getPowerzoneType(d.title));
             break;
           default:      
             row.push(d[value]);
