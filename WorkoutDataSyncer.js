@@ -167,7 +167,7 @@ WorkoutDataSyncer.prototype = {
             row.push(this.rideTypesById[ride.ride_type_id]);
             break;
           case 'length':
-            row.push(ride.duration / 60);
+            row.push(Math.round(ride.duration/60));
             break;
           case 'workout_id':
             row.push(d.id);
@@ -179,7 +179,7 @@ WorkoutDataSyncer.prototype = {
             row.push(d.fitness_discipline);
             break;
           case 'powerzone_type':
-            row.push(this.getPowerzoneType(ride.title));
+            row.push(getPowerzoneType(ride.title));
             break;
           default:
             row.push(ride[value]);
@@ -283,26 +283,6 @@ WorkoutDataSyncer.prototype = {
     rideTypes.forEach(rideType => {
       this.rideTypesById[rideType.id] = rideType.name;
     });
-  },
-
-  getPowerzoneType: function (title) {
-    if (title.includes('FTP Test')) {
-      return 'FTP Test';
-    }
-
-    if (title.includes('Power Zone')) {
-      if (title.includes('Endurance')) {
-        return 'PZE';
-      }
-
-      if (title.includes('Max')) {
-        return 'PZ Max';
-      }
-
-      return 'PZ';
-    }
-
-    return 'Other';
   }
 };
 
