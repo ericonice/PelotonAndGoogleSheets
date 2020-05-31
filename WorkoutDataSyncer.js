@@ -167,7 +167,7 @@ WorkoutDataSyncer.prototype = {
             row.push(this.rideTypesById[ride.ride_type_id]);
             break;
           case 'length':
-            row.push(ride.duration/60);
+            row.push(Math.round(ride.duration/60));
             break;
           case 'workout_id':
             row.push(d.id);
