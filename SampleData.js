@@ -190,7 +190,8 @@ const performanceData = `{
     "location_data": [],
     "is_location_data_accurate": null,
     "splits_data": []
-}`
+}`;
+
 const sampleData = `Workout Timestamp,Live/On-Demand,Instructor Name,Length (minutes),Fitness Discipline,Type,Title,Class Timestamp,Total Output,Avg. Watts,Avg. Resistance,Avg. Cadence (RPM),Avg. Speed (kph),Distance (km),Calories Burned,Avg. Heartrate,Avg. Incline,Avg. Pace (min/km)
 2018-03-20 19:58 (PDT),On Demand,Jennifer Jacobs,30,Cycling,Beginner,30 min Advanced Beginner Ride,2017-10-03 07:21 (PDT),303,169,47%,82,31.61,15.79,370,128.53,,
 2018-03-21 20:12 (PDT),On Demand,Ally Love,30,Cycling,Theme,30 min Pop Ride,2018-03-14 10:19 (PDT),273,152,46%,79,30.32,15.14,453,146.40,,
@@ -215,7 +216,7 @@ const sampleData = `Workout Timestamp,Live/On-Demand,Instructor Name,Length (min
 2018-04-14 21:42 (PDT),On Demand,Matt Wilpers,45,Cycling,Power Zone,45 min Power Zone Ride,2018-04-12 02:47 (PDT),558,207,49%,86,34.49,25.85,579,131.85,,
 2018-04-14 22:30 (PDT),On Demand,Jenn Sherman,5,Stretching,Pre & Post-Ride Stretch,5 min Post-Ride Stretch,2018-03-08 12:24 (PDT),,,,,,,53,117.78,,
 2018-04-15 22:19 (PDT),On Demand,Ally Love,45,Cycling,Theme,45 min 90s Ride,2018-04-15 05:19 (PDT),517,192,51%,79,33.55,25.14,607,135.82,,
-2020-04-25 07:33 (PDT),On Demand,Robin Arzon,5,Stretching,Pre & Post-Ride Stretch,5 min Post-Ride Stretch,2020-01-10 12:33 (PDT),,,,,,,32,94.11,,`
+2020-04-25 07:33 (PDT),On Demand,Robin Arzon,5,Stretching,Pre & Post-Ride Stretch,5 min Post-Ride Stretch,2020-01-10 12:33 (PDT),,,,,,,32,94.11,,`;
 
 const sampleClassData = `{
     "data": [
@@ -2291,4 +2292,4 @@ const sampleClassData = `{
         }
     ],
     "hide_explicit_rides": false
-}`
+}`;

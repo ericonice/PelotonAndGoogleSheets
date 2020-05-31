@@ -1,7 +1,7 @@
 const PropertiesSheetName = 'Properties';
 const ClassDataSheetName = 'Class Data';
 const WorkoutDataSheetName = 'Workout Data';
-const CsvWorkoutDataSheetName = 'Workout Data (CSV)'
+const CsvWorkoutDataSheetName = 'Workout Data (CSV)';
 const MaxProperties = 10;
 
 function Spreadsheet(spreadsheetId) {
@@ -14,9 +14,9 @@ function Spreadsheet(spreadsheetId) {
 }
 
 Spreadsheet.prototype = {
-  getProperties: function(numberOfProperties = 6) {
+  getProperties: function (numberOfProperties = 6) {
     var propertiesSheet = this.spreadsheet.getSheetByName(PropertiesSheetName);
-    
+
     var properties = {};
     for (var i = 1; i <= numberOfProperties; i++) {
       properties[propertiesSheet.getRange(i, 1).getValue()] = propertiesSheet.getRange(i, 2).getValue();
@@ -25,25 +25,25 @@ Spreadsheet.prototype = {
     return properties;
   },
 
-  setProperty: function(key, value) {
+  setProperty: function (key, value) {
     var propertyKeys = this.propertiesSheet.getRange(1, 1, MaxProperties).getValues().flat(1);
     var index = propertyKeys.indexOf(key);
-    
+
     // Create the row if it does not already exist
     if (index == -1) {
       index = this.propertiesSheet.getLastRow();
       this.propertiesSheet.getRange(index + 1, 1).setValue(key);
     }
-    
+
     // Lookup 0 based, sheets 1 based, so add 1 to index
     this.propertiesSheet.getRange(index + 1, 2).setValue(value);
   },
 
-  getSpreadsheetOrDefault: function() {
+  getSpreadsheetOrDefault: function () {
     if (this.spreadsheetId == null) {
       this.spreadsheetId = SpreadSheetIds[0];
     }
-  
+
     return SpreadsheetApp.openById(this.spreadsheetId);
   }
-}
+};
