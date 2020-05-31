@@ -4,7 +4,7 @@ function doGet(request) {
   // Get the spreadsheet
   var parameters = request.parameter;
   var spreadsheetId = request.parameter.id;
-  var useSampleData = ('useSampleData' in parameters) ? 
+  var useSampleData = ('useSampleData' in parameters) ?
     request.parameter.useSampleData :
     false;
   
