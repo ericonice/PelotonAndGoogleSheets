@@ -4,9 +4,9 @@ function doGet(request) {
   // Get the spreadsheet
   var parameters = request.parameter;
   var spreadsheetId = request.parameter.id;
-  var useSampleData = ('useSampleData' in parameters)
-    ? request.parameter.useSampleData
-    : false;
+  var useSampleData = ('useSampleData' in parameters) ?
+    request.parameter.useSampleData :
+    false;
   
   // Update the workout spreadsheet.  
   var syncer = new WorkoutDataSyncer(spreadsheetId, 50, useSampleData);

@@ -1,4 +1,4 @@
-const PELOTON_AUTH_URL = 'https://api.onepeloton.com/auth/login'
+const PELOTON_AUTH_URL = 'https://api.onepeloton.com/auth/login';
 
 function authorize(username, password) {
   if ((username == null) || (password == null)) {
@@ -7,40 +7,40 @@ function authorize(username, password) {
 
   // Get the user_id and cookie needed to invoke the API to get the workout data
   var payload =
-      {
-        "username_or_email": username, 
-        "password": password
-      };
-      
+  {
+    "username_or_email": username,
+    "password": password
+  };
+
   var options =
-      {
-        "method"  : "POST",
-        "contentType" : "application/json",
-        'muteHttpExceptions' : true,
-        "payload" : JSON.stringify(payload)
-      };
-  
+  {
+    "method": "POST",
+    "contentType": "application/json",
+    'muteHttpExceptions': true,
+    "payload": JSON.stringify(payload)
+  };
+
   var authResult = UrlFetchApp.fetch(PELOTON_AUTH_URL, options);
   var rc = authResult.getResponseCode();
-  
+
   // Should check for other responses, otberwise will get misleading error
   if (rc == 401) {
     throw 'Invalid credentials';
   }
-  
+
   // Needs the peloton_session_id cookie for future invocations
-  var cookies = authResult.getAllHeaders()['Set-Cookie']; 
+  var cookies = authResult.getAllHeaders()['Set-Cookie'];
   var cookie = cookies.filter(function (c) {
     return c.startsWith('peloton_session_id');
   })[0];
-    
+
   // And some APIs will need the user_id
   var authResponse = JSON.parse(authResult.getContentText());
   var userId = authResponse.user_id;
-    
+
   return {
-    userId : userId, 
-    cookie : cookie 
+    userId: userId,
+    cookie: cookie
   };
 }
 
