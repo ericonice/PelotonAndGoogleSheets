@@ -16,7 +16,7 @@ function doGet(request) {
   return ContentService.createTextOutput(JSON.stringify(results, null, 2) ).setMimeType(ContentService.MimeType.JSON);
 }
 
-function updateRecentWorkouts() {
+function updateAllWorkouts() {
   for (let spreadsheetId of SpreadSheetIds) {
     var syncer = new WorkoutDataSyncer(spreadsheetId, 50);
     syncer.initialize();
@@ -35,13 +35,11 @@ function updateRecentClasses() {
 }
 
 function updateAllClasses() {
-  if (!UpdateAllSpreadsheetId) {
-    console.log('Update All Spreadsheet Id not set');
-    return;
+  for (let spreadsheetId of SpreadSheetIds) {
+    // Fetch 500 classes at a time when loading all of the workouts
+    var syncer = new ClassDataSyncer(spreadsheetId, 500);
+    syncer.initialize();
+    var results = syncer.updateAllClassData();
+    console.log('Update All Classes: ' + JSON.stringify(results, null, 2));  
   }
-  // Fetch 500 classes at a time when loading all of the workouts
-  var syncer = new ClassDataSyncer(UpdateAllSpreadsheetId, 500);
-  syncer.initialize();
-  var results = syncer.updateAllClassData();
-  console.log('Update All Classes: ' + JSON.stringify(results, null, 2));  
 }
