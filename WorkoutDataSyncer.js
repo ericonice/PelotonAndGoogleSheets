@@ -39,7 +39,8 @@ const MetricProperties = [
 function WorkoutDataSyncer(spreadsheetId, limit, useSampleData = false) {
   this.spreadsheetId = spreadsheetId;
   this.useSampleData = useSampleData;
-  this.limit = limit;
+  this.initialPageSize = 10;
+  this.pageSize = limit;
 }
 
 WorkoutDataSyncer.prototype = {
@@ -67,112 +68,82 @@ WorkoutDataSyncer.prototype = {
     }
   },
   
-  updateRecentWorkoutData: function() {
-    this.lastWorkoutId = this.workoutSheet.getRange(2, 1).getValue();
-    if (this.lastWorkoutId == null) {
-      throw 'No previous workouts.  Please first update all workouts.'
-    }
+  updateWorkoutData: function() {
+    // Create or update the header row 
+    var rows = [WorkoutProperties.concat(MetricProperties)];
+    this.workoutSheet.getRange(1, 1, rows.length, rows[0].length).setValues(rows);  
 
-    var workoutData = this.getWorkoutData();
+    // Get the last workout and expected number of rows to fetch
+    var firstPage = this.getWorkoutDataResponse(0, this.initialPageSize);           
+    var totalWorkoutCount = firstPage.total; 
+    var currentWorkoutCount = this.workoutSheet.getLastRow() - 1;
+    var numberOfNewWorkouts = totalWorkoutCount - currentWorkoutCount;
+    var firstPageIsEnough = numberOfNewWorkouts < this.initialPageSize; 
+
+    // Find the page with the last workout ID
+    var numberOfPages = Math.floor(numberOfNewWorkouts / this.pageSize);
+
+    for (let page = numberOfPages; page >= 0; page--) {
+      let lastWorkoutId;
+      
+      if (page == numberOfPages) {
+        lastWorkoutId = this.workoutSheet.getRange(2, 1).getValue();
+      } 
+
+      // Use the first page if all of the new workouts are in the first page
+      var workoutData = firstPageIsEnough
+        ? firstPage
+        : this.getWorkoutDataResponse(page, this.pageSize);   
+      
+      // Process the data, stopping if we find the last workout ID so we don't
+      // add duplicate workouts
+      var processedWorkouts = this.processWorkoutData(workoutData, lastWorkoutId);
+     
+      // Verify found last workout ID was found.  
+      if (lastWorkoutId && !processedWorkouts.foundLastWorkout) {
+        throw 'Failed to find last workout.  This could be an indication that the workout data is corrupt.'
+      }
+
+      // Add the new workouts
+      var rows = processedWorkouts.rows;
+      if (rows.length > 0) {
+        this.workoutSheet.insertRows(2, rows.length);
+        this.workoutSheet.getRange(2, 1, rows.length, rows[0].length).setValues(rows);
+      }
+  
+      // Log progress if querying multiple pages
+      if (numberOfPages > 0) {
+        console.log('Processed page ' + page + ' containing ' + rows.length + ' workouts.'); 
+      }
+    }
     
-    // Insert the new workouts at the beginning 
-    var newWorkouts = workoutData.workouts;
-    if (newWorkouts.length > 0) {
-      this.workoutSheet.insertRows(2, newWorkouts.length);
-      this.workoutSheet.getRange(2, 1, newWorkouts.length, newWorkouts[0].length).setValues(newWorkouts);
-    }
-
     // Update properties
     var refreshDate = new Date().toString();
     var currentWorkoutCount = this.workoutSheet.getLastRow() - 1;
     this.spreadsheet.setProperty('lastWorkoutRefreshDate', refreshDate);
     this.spreadsheet.setProperty('lastWorkoutTotal', currentWorkoutCount);
 
-    this.verify(workoutData.expectedTotal, currentWorkoutCount);
+    this.verify(totalWorkoutCount, currentWorkoutCount);
     
     return {
       operation: 'Update recent workouts',
       previousRefreshDate : this.properties.lastWorkoutRefreshDate, 
       previousWorkoutCount : this.properties.lastWorkoutTotal, 
-      addedWorkouts: newWorkouts.length,
-      expectedTotal: workoutData.expectedTotal, 
+      addedWorkouts: numberOfNewWorkouts,
+      expectedTotal: totalWorkoutCount, 
       actualTotal: currentWorkoutCount
     };
-  },
-  
-  updateAllWorkoutData: function() {
-    // Create the header row 
-    var rows = [WorkoutProperties.concat(MetricProperties)];
-    this.workoutSheet.getRange(1, 1, rows.length, rows[0].length).setValues(rows);  
-    
-    // Add the new workouts
-    var workoutData = this.getWorkoutData();    
-    var newWorkouts = workoutData.workouts;
-    this.workoutSheet.getRange(2, 1, newWorkouts.length, newWorkouts[0].length).setValues(newWorkouts);
+  },  
 
-    // Update properties
-    var refreshDate = new Date().toString();
-    var currentWorkoutCount = this.workoutSheet.getLastRow() - 1;
-    this.spreadsheet.setProperty('lastWorkoutRefreshDate', refreshDate);
-    this.spreadsheet.setProperty('lastWorkoutTotal', currentWorkoutCount);
-
-    this.verify(workoutData.expectedTotal, currentWorkoutCount);
-
-    return {
-      operation: 'Update all workouts',
-      previousRefreshDate : this.properties.lastWorkoutRefreshDate, 
-      previousWorkoutCount : this.properties.lastWorkoutTotal, 
-      addedWorkouts: newWorkouts.length,
-      expectedTotal: workoutData.expectedTotal, 
-      actualTotal: currentWorkoutCount
-    };
-  },
-
-  getWorkoutData: function() {    
-    var total = 0;
-    var page = 0;
-    var rowPosition = 2;
-    var page_count;
-    var expectedTotal;
-    var first = true;
-    var foundWorkoutId = false;
-    var newWorkouts = [];
-    do {
-      var workoutData = this.getWorkoutDataResponse(page++);           
-      
-      // Process the data, stopping if we find the last workout ID
-      var processedWorkouts = this.processWorkoutData(workoutData);
-      newWorkouts = newWorkouts.concat(processedWorkouts);
-      
-      // If the number of processed workouts is less than the count, we found the workout Id
-      foundWorkoutId = (processedWorkouts.length < workoutData.count);
-      
-      if (first) {
-        page_count = workoutData.page_count;
-        expectedTotal = workoutData.total; 
-        first = false;
-      }    
-     
-      // Log progress if syncing all workouts (which is case when there is no last workout Id)
-      if (this.lastWorkoutId == null) {
-        console.log('Processed page ' + page + ' containing ' + processedWorkouts.length + ' workouts.'); 
-      }
-    }
-    while (!foundWorkoutId && (page < page_count));
-    
-    return {
-      workouts: newWorkouts,
-      expectedTotal: expectedTotal
-    }
-  },
-
-  processWorkoutData: function(workoutData) {
+  processWorkoutData: function(workoutData, stopAtWorkoutId) {
     var rows = [];
-    
+    var foundLastWorkout = false;
+
     var data = workoutData.data;
     
     for (let d of data) {
-      if (d.id == this.lastWorkoutId) {
+      if (d.id == stopAtWorkoutId) {
+        foundLastWorkout = true;
         break;
       }
       
@@ -222,7 +193,10 @@ WorkoutDataSyncer.prototype = {
       rows.push(row);
     }
       
-    return rows;    
+    return {
+      rows : rows,
+      foundLastWorkout : foundLastWorkout
+    }
   },
 
   getWorkoutMetrics: function(workoutId, interval = 10000) {
@@ -282,11 +256,11 @@ WorkoutDataSyncer.prototype = {
     return values;  
   },
   
-  getWorkoutDataResponse: function(page) {
+  getWorkoutDataResponse: function(page, limit) {
     var url = 'https://api.onepeloton.com/api/user/' 
       + this.userId 
       + '/workouts?&joins=ride&sort_by=created_at&desc=true&page=' 
-      + page + '&limit=' + this.limit;    
+      + page + '&limit=' + limit;    
     
     var header = {"Cookie": this.cookie};
     var options = {"headers": header};
@@ -334,3 +308,9 @@ WorkoutDataSyncer.prototype = {
   }
 }
 
+function test1() {
+  var syncer = new WorkoutDataSyncer(EricSpreadsheetId, 50, false);
+  syncer.initialize();
+  var results = syncer.updateWorkoutData();
+  console.log('Update workouts: ' + JSON.stringify(results, null, 2));  
+}

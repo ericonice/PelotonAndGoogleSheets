@@ -9,28 +9,20 @@ function doGet(request) {
     : false;
   
   // Update the workout spreadsheet.  
-  var syncer = new WorkoutDataSyncer(spreadsheetId, 5, useSampleData);
+  var syncer = new WorkoutDataSyncer(spreadsheetId, 50, useSampleData);
   syncer.initialize();
-  var results = syncer.updateRecentWorkoutData();
+  var results = syncer.updateWorkoutData();
   console.log('Updated workout data for spreadsheet' + spreadsheetId + ': ' + JSON.stringify(results, null, 2));
   return ContentService.createTextOutput(JSON.stringify(results, null, 2) ).setMimeType(ContentService.MimeType.JSON);
 }
 
 function updateRecentWorkouts() {
   for (let spreadsheetId of SpreadSheetIds) {
-    var syncer = new WorkoutDataSyncer(EricSpreadsheetId, 5);
+    var syncer = new WorkoutDataSyncer(EricSpreadsheetId, 50);
     syncer.initialize();
-    var results = syncer.updateRecentWorkoutData();
-    console.log('Update Recent Workouts for spreadsheet (' + spreadsheetId + '): ' + JSON.stringify(results, null, 2));  
+    var results = syncer.updateWorkoutData();
+    console.log('Update workouts for spreadsheet (' + spreadsheetId + '): ' + JSON.stringify(results, null, 2));  
   }
-}
-
-function updateAllWorkouts() {
-  // Fetch 100 workouts at a time when loading all of the workouts
-  var syncer = new WorkoutDataSyncer(EricSpreadsheetId, 100, false);
-  syncer.initialize();
-  var results = syncer.updateAllWorkoutData();
-  console.log('Update All Workouts: ' + JSON.stringify(results, null, 2));  
 }
 
 function updateRecentClasses() {
