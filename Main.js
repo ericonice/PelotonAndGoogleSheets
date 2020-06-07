@@ -2,9 +2,9 @@ function doGet(request) {
   console.log('Updating Peloton Workout and Classes Data spreadsheet with the latest data: ' + JSON.stringify(request, null, 2));
     
   // Get the spreadsheet
-  var parameters = request.parameter;
-  var spreadsheetId = request.parameter.id;
-  var useSampleData = ('useSampleData' in parameters) ?
+  let parameters = request.parameter;
+  let spreadsheetId = request.parameter.id;
+  let useSampleData = ('useSampleData' in parameters) ?
     request.parameter.useSampleData :
     false;
   
@@ -26,9 +26,9 @@ function updateAllWorkoutsForEveryone() {
 }
 
 function updateAllWorkouts(spreadsheetId, useSampleData) {
-  var syncer = new WorkoutDataSyncer(spreadsheetId, 50, useSampleData);
+  let syncer = new WorkoutDataSyncer(spreadsheetId, 50, useSampleData);
   syncer.initialize();
-  var results = syncer.updateWorkoutData();
+  let results = syncer.updateWorkoutData();
   console.log('Updated workout data for spreadsheet ' + spreadsheetId + ': ' + JSON.stringify(results, null, 2));
   return results;
 }
@@ -41,9 +41,9 @@ function updateAllClassesForEveryone() {
 
 function updateAllClasses(spreadsheetId) {
   // Fetch 500 classes at a time when loading all of the workouts
-  var syncer = new ClassDataSyncer(spreadsheetId, 500);
+  let syncer = new ClassDataSyncer(spreadsheetId, 500);
   syncer.initialize();
-  var results = syncer.updateAllClassData();
+  let results = syncer.updateAllClassData();
   console.log('Updated Classes data for spreadsheet ' + spreadsheetId + ': ' + JSON.stringify(results, null, 2));
   return results;
 }

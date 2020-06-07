@@ -6,28 +6,28 @@ function CsvWorkoutDataSyncer(spreadsheetId, useSampleData = false) {
 CsvWorkoutDataSyncer.prototype = {
 
   updateWorkoutData: function () {
-    var spreadsheet = new Spreadsheet(this.spreadsheetId);
+    let spreadsheet = new Spreadsheet(this.spreadsheetId);
 
     // Get properties
-    var properties = spreadsheet.getProperties();
+    let properties = spreadsheet.getProperties();
 
     this.username = properties.username;
     this.password = properties.password;
-    var previousRefreshDate = properties.lastWorkoutRefreshDate;
-    var previousWorkoutCount = properties.lastWorkoutTotal;
+    let previousRefreshDate = properties.lastWorkoutRefreshDate;
+    let previousWorkoutCount = properties.lastWorkoutTotal;
 
     // Get the latest Peloton data
-    var workoutData = this.useSampleData ?
+    let workoutData = this.useSampleData ?
       Utilities.parseCsv(sampleData) :
       this.getWorkoutData(this.username, this.password);
 
     // Update properties
-    var refreshDate = new Date();
-    var currentWorkoutCount = workoutData.length - 1;
+    let refreshDate = new Date();
+    let currentWorkoutCount = workoutData.length - 1;
     spreadsheet.setProperty('lastWorkoutRefreshDate', refreshDate);
     spreadsheet.setProperty('lastWorkoutTotal', currentWorkoutCount);
 
-    var results = {
+    let results = {
       status: "Success",
       previousRefreshDate: previousRefreshDate,
       previousWorkoutCount: previousWorkoutCount,
@@ -43,16 +43,16 @@ CsvWorkoutDataSyncer.prototype = {
   },
 
   getWorkoutData: function () {
-    var userIdAndCookie = authorize(this.username, this.password);
+    let userIdAndCookie = authorize(this.username, this.password);
 
     // Fetch and parse data from API
-    var url = 'https://api.onepeloton.com/api/user/' + userIdAndCookie.userId + '/workout_history_csv';
-    var header = { "Cookie": userIdAndCookie.cookie };
-    var options = { "headers": header };
-    var response = UrlFetchApp.fetch(url, options);
+    let url = 'https://api.onepeloton.com/api/user/' + userIdAndCookie.userId + '/workout_history_csv';
+    let header = { "Cookie": userIdAndCookie.cookie };
+    let options = { "headers": header };
+    let response = UrlFetchApp.fetch(url, options);
 
     // Response is csv  
-    var csvData = response.getContentText();
+    let csvData = response.getContentText();
 
     return Utilities.parseCsv(csvData);
   }
@@ -60,10 +60,10 @@ CsvWorkoutDataSyncer.prototype = {
 
 function test() {
   // Get the spreadsheet
-  var syncer = new CsvWorkoutDataSyncer(SpreadsheetId, false);
+  let syncer = new CsvWorkoutDataSyncer(SpreadsheetId, false);
 
   // Update spreadsheet
-  var results = syncer.updateWorkoutData();
+  let results = syncer.updateWorkoutData();
   console.log('Updated spreadsheet ' + syncer.spreadsheetId + ': ' + JSON.stringify(results, null, 2));
 
 }

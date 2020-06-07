@@ -15,10 +15,10 @@ function Spreadsheet(spreadsheetId) {
 
 Spreadsheet.prototype = {
   getProperties: function (numberOfProperties = 6) {
-    var propertiesSheet = this.spreadsheet.getSheetByName(PropertiesSheetName);
+    let propertiesSheet = this.spreadsheet.getSheetByName(PropertiesSheetName);
 
-    var properties = {};
-    for (var i = 1; i <= numberOfProperties; i++) {
+    let properties = {};
+    for (let i = 1; i <= numberOfProperties; i++) {
       properties[propertiesSheet.getRange(i, 1).getValue()] = propertiesSheet.getRange(i, 2).getValue();
     }
 
@@ -26,8 +26,8 @@ Spreadsheet.prototype = {
   },
 
   setProperty: function (key, value) {
-    var propertyKeys = this.propertiesSheet.getRange(1, 1, MaxProperties).getValues().flat(1);
-    var index = propertyKeys.indexOf(key);
+    let propertyKeys = this.propertiesSheet.getRange(1, 1, MaxProperties).getValues().flat(1);
+    let index = propertyKeys.indexOf(key);
 
     // Create the row if it does not already exist
     if (index == -1) {

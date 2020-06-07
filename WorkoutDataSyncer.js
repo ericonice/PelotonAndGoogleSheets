@@ -56,7 +56,7 @@ WorkoutDataSyncer.prototype = {
 
   login: function () {
     if (!this.useSampleData) {
-      var userIdAndCookie = authorize(this.username, this.password);
+      let userIdAndCookie = authorize(this.username, this.password);
       this.userId = userIdAndCookie.userId;
       this.cookie = userIdAndCookie.cookie;
     }
@@ -76,14 +76,14 @@ WorkoutDataSyncer.prototype = {
     this.workoutSheet.getRange(1, 1, rows.length, rows[0].length).setValues(rows);
 
     // Get the last workout and expected number of rows to fetch
-    var firstPage = this.getWorkoutDataResponse(0, this.initialPageSize);
-    var totalWorkoutCount = firstPage.total;
-    var currentWorkoutCount = this.workoutSheet.getLastRow() - 1;
-    var numberOfNewWorkouts = totalWorkoutCount - currentWorkoutCount;
-    var firstPageIsEnough = numberOfNewWorkouts < this.initialPageSize;
+    let firstPage = this.getWorkoutDataResponse(0, this.initialPageSize);
+    let totalWorkoutCount = firstPage.total;
+    let currentWorkoutCount = this.workoutSheet.getLastRow() - 1;
+    let numberOfNewWorkouts = totalWorkoutCount - currentWorkoutCount;
+    let firstPageIsEnough = numberOfNewWorkouts < this.initialPageSize;
 
     // Find the page with the last workout ID
-    var numberOfPages = Math.floor(numberOfNewWorkouts / this.pageSize);
+    let numberOfPages = Math.floor(numberOfNewWorkouts / this.pageSize);
 
     for (let page = numberOfPages; page >= 0; page--) {
       let lastWorkoutId;
@@ -93,13 +93,13 @@ WorkoutDataSyncer.prototype = {
       }
 
       // Use the first page if all of the new workouts are in the first page
-      var workoutData = firstPageIsEnough ?
+      let workoutData = firstPageIsEnough ?
         firstPage :
         this.getWorkoutDataResponse(page, this.pageSize);
 
       // Process the data, stopping if we find the last workout ID so we don't
       // add duplicate workouts
-      var processedWorkouts = this.processWorkoutData(workoutData, lastWorkoutId);
+      let processedWorkouts = this.processWorkoutData(workoutData, lastWorkoutId);
 
       // Verify found last workout ID was found.  
       if (lastWorkoutId && !processedWorkouts.foundLastWorkout) {
@@ -120,7 +120,7 @@ WorkoutDataSyncer.prototype = {
     }
 
     // Update properties
-    var refreshDate = new Date().toString();
+    let refreshDate = new Date().toString();
     currentWorkoutCount = this.workoutSheet.getLastRow() - 1;
     this.spreadsheet.setProperty('lastWorkoutRefreshDate', refreshDate);
     this.spreadsheet.setProperty('lastWorkoutTotal', currentWorkoutCount);
@@ -138,10 +138,10 @@ WorkoutDataSyncer.prototype = {
   },
 
   processWorkoutData: function (workoutData, stopAtWorkoutId) {
-    var rows = [];
-    var foundLastWorkout = false;
+    let rows = [];
+    let foundLastWorkout = false;
 
-    var data = workoutData.data;
+    let data = workoutData.data;
 
     for (let d of data) {
       if (d.id == stopAtWorkoutId) {
@@ -149,8 +149,8 @@ WorkoutDataSyncer.prototype = {
         break;
       }
 
-      var row = [];
-      var ride = d.ride;
+      let row = [];
+      let ride = d.ride;
 
       for (let value of WorkoutProperties) {
         switch (value) {
@@ -187,7 +187,7 @@ WorkoutDataSyncer.prototype = {
       }
 
       // Add the metrics
-      var metrics = this.getWorkoutMetrics(d.id);
+      let metrics = this.getWorkoutMetrics(d.id);
       for (let value of MetricProperties) {
         row.push(metrics[value]);
       }
@@ -202,15 +202,15 @@ WorkoutDataSyncer.prototype = {
   },
 
   getWorkoutMetrics: function (workoutId, interval = 10000) {
-    var url = `https://api.onepeloton.com/api/workout/${workoutId}/performance_graph?every_n=${interval}`;
+    let url = `https://api.onepeloton.com/api/workout/${workoutId}/performance_graph?every_n=${interval}`;
 
-    var header = { "Cookie": this.cookie };
-    var options = { "headers": header };
-    var response = UrlFetchApp.fetch(url, options);
+    let header = { "Cookie": this.cookie };
+    let options = { "headers": header };
+    let response = UrlFetchApp.fetch(url, options);
 
-    var metrics = JSON.parse(response.getContentText());
+    let metrics = JSON.parse(response.getContentText());
 
-    var values = new Map();
+    let values = new Map();
     metrics.summaries.forEach(data => {
       switch (data.slug) {
         case 'distance':
@@ -268,18 +268,18 @@ WorkoutDataSyncer.prototype = {
   },
 
   setMetadata: function () {
-    var url = 'https://api.onepeloton.com/api/ride/metadata_mappings';
-    var response = UrlFetchApp.fetch(url);
-    var metadata = JSON.parse(response.getContentText());
+    let url = 'https://api.onepeloton.com/api/ride/metadata_mappings';
+    let response = UrlFetchApp.fetch(url);
+    let metadata = JSON.parse(response.getContentText());
 
     this.instructorsById = {};
-    var instructors = metadata.instructors;
+    let instructors = metadata.instructors;
     instructors.forEach(instructor => {
       this.instructorsById[instructor.id] = instructor.name;
     });
 
     this.rideTypesById = {};
-    var rideTypes = metadata.class_types;
+    let rideTypes = metadata.class_types;
     rideTypes.forEach(rideType => {
       this.rideTypesById[rideType.id] = rideType.name;
     });
@@ -287,8 +287,8 @@ WorkoutDataSyncer.prototype = {
 };
 
 function test1() {
-  var syncer = new WorkoutDataSyncer(EricSpreadsheetId, 50, false);
+  let syncer = new WorkoutDataSyncer(EricSpreadsheetId, 50, false);
   syncer.initialize();
-  var results = syncer.updateWorkoutData();
+  let results = syncer.updateWorkoutData();
   console.log('Update workouts: ' + JSON.stringify(results, null, 2));
 }
