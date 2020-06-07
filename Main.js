@@ -2,17 +2,17 @@ function doGet(request) {
   console.log(`Updating Peloton Workout and Classes Data spreadsheet with the latest data: ${JSON.stringify(request, null, 2)}`);
 
   // Get the spreadsheet
-  var parameters = request.parameter;
-  var spreadsheetId = request.parameter.id;
+  let parameters = request.parameter;
+  let spreadsheetId = request.parameter.id;
   if (!request.parameter.id) {
     throw 'Missing required id parameter';
   }
 
-  var useSampleData = ('useSampleData' in parameters) ?
+  let useSampleData = ('useSampleData' in parameters) ?
     !!request.parameter.useSampleData && (request.parameter.useSampleData !== 'false'):
     false;
   
-  var refreshClasses = ('refreshClasses' in parameters) ?
+  let refreshClasses = ('refreshClasses' in parameters) ?
     !!request.parameter.refreshClasses && (request.parameter.refreshClasses !== 'false'):
     true;
 
@@ -51,7 +51,7 @@ function updateAllClasses(spreadsheetId, refreshClasses) {
   // Fetch 500 classes at a time when loading all of the workouts
   let syncer = new ClassDataSyncer(spreadsheetId, 500);
   syncer.initialize();
-  var results = refreshClasses ?
+  let results = refreshClasses ?
     syncer.updateAllClassData() :
     syncer.updateRecentClassData();
 
