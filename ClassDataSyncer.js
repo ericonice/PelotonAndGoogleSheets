@@ -37,7 +37,7 @@ ClassDataSyncer.prototype = {
   },
 
   login: function () {
-    var userIdAndCookie = authorize(this.username, this.password);
+    let userIdAndCookie = authorize(this.username, this.password);
     this.userId = userIdAndCookie.userId;
     this.cookie = userIdAndCookie.cookie;
   },
@@ -54,18 +54,18 @@ ClassDataSyncer.prototype = {
       throw 'No previous class.  Please first update all classes.';
     }
 
-    var classData = this.getClassData();
+    let classData = this.getClassData();
 
     // Insert the new classes at the beginning 
-    var newClasses = classData.classes;
+    let newClasses = classData.classes;
     if (newClasses.length > 0) {
       this.classSheet.insertRows(2, newClasses.length);
       this.classSheet.getRange(2, 1, newClasses.length, newClasses[0].length).setValues(newClasses);
     }
 
     // Update properties
-    var refreshDate = new Date().toString();
-    var currentClassCount = this.classSheet.getLastRow() - 1;
+    let refreshDate = new Date().toString();
+    let currentClassCount = this.classSheet.getLastRow() - 1;
     this.spreadsheet.setProperty('lastClassRefreshDate', refreshDate);
     this.spreadsheet.setProperty('lastClassTotal', currentClassCount);
 
@@ -83,17 +83,17 @@ ClassDataSyncer.prototype = {
 
   updateAllClassData: function () {
     // Create the header row 
-    var rows = [ClassProperties];
+    let rows = [ClassProperties];
     this.classSheet.getRange(1, 1, rows.length, rows[0].length).setValues(rows);
 
     // Add the new classes
-    var classData = this.getClassData();
-    var newClasses = classData.classes;
+    let classData = this.getClassData();
+    let newClasses = classData.classes;
     this.classSheet.getRange(2, 1, newClasses.length, newClasses[0].length).setValues(newClasses);
 
     // Update properties
-    var refreshDate = new Date().toString();
-    var currentClassCount = this.classSheet.getLastRow() - 1;
+    let refreshDate = new Date().toString();
+    let currentClassCount = this.classSheet.getLastRow() - 1;
     this.spreadsheet.setProperty('lastClassRefreshDate', refreshDate);
     this.spreadsheet.setProperty('lastClassTotal', currentClassCount);
 
@@ -110,19 +110,19 @@ ClassDataSyncer.prototype = {
   },
 
   getClassData: function () {
-    var total = 0;
-    var page = 0;
-    var rowPosition = 2;
-    var page_count;
-    var expectedTotal;
-    var first = true;
-    var foundRideId = false;
-    var newClasses = [];
+    let total = 0;
+    let page = 0;
+    let rowPosition = 2;
+    let page_count;
+    let expectedTotal;
+    let first = true;
+    let foundRideId = false;
+    let newClasses = [];
     do {
-      var classData = this.getClassDataResponse(page++);
+      let classData = this.getClassDataResponse(page++);
 
       // Process the data, stopping if we find the last ride ID
-      var processedClasses = this.processClassData(classData);
+      let processedClasses = this.processClassData(classData);
       newClasses = newClasses.concat(processedClasses);
 
       // If the number of processed classes is less than the count, we found the ride Id
@@ -148,18 +148,18 @@ ClassDataSyncer.prototype = {
   },
 
   processClassData: function (classData) {
-    var rows = [];
+    let rows = [];
 
-    var instructors = classData.instructors;
-    var data = classData.data;
-    var rideTypes = classData.ride_types;
+    let instructors = classData.instructors;
+    let data = classData.data;
+    let rideTypes = classData.ride_types;
 
-    var instructorsById = {};
+    let instructorsById = {};
     instructors.forEach(instructor => {
       instructorsById[instructor.id] = instructor.name;
     });
 
-    var rideTypesById = {};
+    let rideTypesById = {};
     rideTypes.forEach(rideType => {
       rideTypesById[rideType.id] = rideType.name;
     });
@@ -169,7 +169,7 @@ ClassDataSyncer.prototype = {
         break;
       }
 
-      var row = [];
+      let row = [];
       for (let value of ClassProperties) {
         switch (value) {
           case 'instructor':
@@ -202,10 +202,10 @@ ClassDataSyncer.prototype = {
   },
 
   getClassDataResponse: function (page) {
-    var url = `https://api.onepeloton.com/api/v2/ride/archived?browse_category=cycling&sort_by=original_air_time&true=false&page=${page}&limit=${this.limit}`;
-    var header = { "Cookie": this.cookie };
-    var options = { "headers": header };
-    var response = UrlFetchApp.fetch(url, options);
+    let url = `https://api.onepeloton.com/api/v2/ride/archived?browse_category=cycling&sort_by=original_air_time&true=false&page=${page}&limit=${this.limit}`;
+    let header = { "Cookie": this.cookie };
+    let options = { "headers": header };
+    let response = UrlFetchApp.fetch(url, options);
     return JSON.parse(response.getContentText());
   }
 };

@@ -6,13 +6,13 @@ function authorize(username, password) {
   }
 
   // Get the user_id and cookie needed to invoke the API to get the workout data
-  var payload =
+  let payload =
   {
     "username_or_email": username,
     "password": password
   };
 
-  var options =
+  let options =
   {
     "method": "POST",
     "contentType": "application/json",
@@ -20,8 +20,8 @@ function authorize(username, password) {
     "payload": JSON.stringify(payload)
   };
 
-  var authResult = UrlFetchApp.fetch(PELOTON_AUTH_URL, options);
-  var rc = authResult.getResponseCode();
+  let authResult = UrlFetchApp.fetch(PELOTON_AUTH_URL, options);
+  let rc = authResult.getResponseCode();
 
   // Should check for other responses, otberwise will get misleading error
   if (rc == 401) {
@@ -29,14 +29,14 @@ function authorize(username, password) {
   }
 
   // Needs the peloton_session_id cookie for future invocations
-  var cookies = authResult.getAllHeaders()['Set-Cookie'];
-  var cookie = cookies.filter(function (c) {
+  let cookies = authResult.getAllHeaders()['Set-Cookie'];
+  let cookie = cookies.filter(function (c) {
     return c.startsWith('peloton_session_id');
   })[0];
 
   // And some APIs will need the user_id
-  var authResponse = JSON.parse(authResult.getContentText());
-  var userId = authResponse.user_id;
+  let authResponse = JSON.parse(authResult.getContentText());
+  let userId = authResponse.user_id;
 
   return {
     userId: userId,
