@@ -1,6 +1,6 @@
 function doGet(request) {
-  console.log('Updating Peloton Workout and Classes Data spreadsheet with the latest data: ' + JSON.stringify(request, null, 2));
-    
+  console.log(`Updating Peloton Workout and Classes Data spreadsheet with the latest data: ${JSON.stringify(request, null, 2)}`);
+
   // Get the spreadsheet
   var parameters = request.parameter;
   var spreadsheetId = request.parameter.id;
@@ -9,12 +9,12 @@ function doGet(request) {
   }
 
   var useSampleData = ('useSampleData' in parameters) ?
-    request.parameter.useSampleData :
+    !!request.parameter.useSampleData && (request.parameter.useSampleData !== 'false'):
     false;
   
-  var updateAllClasses = ('updateAllClasses' in parameters) ?
-    request.parameter.updateAllClasses :
-    false;
+  var refreshClasses = ('refreshClasses' in parameters) ?
+    !!request.parameter.refreshClasses && (request.parameter.refreshClasses !== 'false'):
+    true;
 
   let results = {};
 
@@ -22,8 +22,8 @@ function doGet(request) {
   results.workout_update_results = updateAllWorkouts(spreadsheetId, useSampleData);
 
   // Update the classes spreadsheet.  
-  results.classes_update_results = updateAllClasses(spreadsheetId, updateAllClasses);
-
+  results.classes_update_results = updateAllClasses(spreadsheetId, refreshClasses);
+  
   return ContentService.createTextOutput(JSON.stringify(results, null, 2) ).setMimeType(ContentService.MimeType.JSON);
 }
 
@@ -37,7 +37,7 @@ function updateAllWorkouts(spreadsheetId, useSampleData) {
   let syncer = new WorkoutDataSyncer(spreadsheetId, 50, useSampleData);
   syncer.initialize();
   let results = syncer.updateWorkoutData();
-  console.log('Updated workout data for spreadsheet ' + spreadsheetId + ': ' + JSON.stringify(results, null, 2));
+  console.log(`Updated workout data for spreadsheet ${spreadsheetId}: ${JSON.stringify(results, null, 2)}`);
   return results;
 }
 
@@ -47,14 +47,14 @@ function updateAllClassesForEveryone() {
   }
 }
 
-function updateAllClasses(spreadsheetId, updateAllClasses) {
+function updateAllClasses(spreadsheetId, refreshClasses) {
   // Fetch 500 classes at a time when loading all of the workouts
   let syncer = new ClassDataSyncer(spreadsheetId, 500);
   syncer.initialize();
-  var results = updateAllClasses ?
+  var results = refreshClasses ?
     syncer.updateAllClassData() :
     syncer.updateRecentClassData();
 
-  console.log('Updated Classes data for spreadsheet ' + spreadsheetId + ': ' + JSON.stringify(results, null, 2));
+  console.log(`Updated class data for spreadsheet ${spreadsheetId}: ${JSON.stringify(results, null, 2)}`);
   return results;
 }
