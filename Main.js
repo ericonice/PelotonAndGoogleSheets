@@ -47,6 +47,12 @@ function updateAllClassesForEveryone() {
   }
 }
 
+function updateRecentClassesForEveryone() {
+  for (let spreadsheetId of SpreadSheetIds) {
+    updateAllClasses(spreadsheetId, false);  
+  }
+}
+
 function updateAllClasses(spreadsheetId, refreshClasses) {
   // Fetch 500 classes at a time when loading all of the workouts
   let syncer = new ClassDataSyncer(spreadsheetId, 500);
