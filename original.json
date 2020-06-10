@@ -1,0 +1,730 @@
+[
+    {
+        "cdsObject": "Clients",
+        "listName": "Clients",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "clientId",
+                "fieldName": "Client Id"
+            },
+            {
+                "cdsProperty": "description",
+                "fieldName": "Description"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "status",
+                "fieldName": "Status"
+            },
+            {
+                "cdsProperty": "closedOn",
+                "fieldName": "Closed On"
+            },
+            {
+                "cdsProperty": "dunsNumber",
+                "fieldName": "Duns Number"
+            },
+            {
+                "cdsProperty": "industry",
+                "fieldName": "Industry"
+            },
+            {
+                "cdsProperty": "clientPersons",
+                "fieldName": "Client Persons"
+            },
+            {
+                "cdsProperty": "openedOn",
+                "fieldName": "Opened On"
+            },
+            {
+                "cdsProperty": "createdBy",
+                "fieldName": "CDS Created By"
+            },
+            {
+                "cdsProperty": "modifiedBy",
+                "fieldName": "CDS Modified By"
+            },
+            {
+                "cdsProperty": "createdOn",
+                "fieldName": "CDS Created On"
+            },
+            {
+                "cdsProperty": "modifiedOn",
+                "fieldName": "CDS Modified On"
+            }
+        ]
+    },
+    {
+        "cdsObject": "Clients",
+        "listName": "Clients2",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "clientId",
+                "fieldName": "Client Id"
+            },
+            {
+                "cdsProperty": "description",
+                "fieldName": "Description"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "status",
+                "fieldName": "Status"
+            },
+            {
+                "cdsProperty": "closedOn",
+                "fieldName": "Closed On"
+            },
+            {
+                "cdsProperty": "dunsNumber",
+                "fieldName": "Duns Number"
+            },
+            {
+                "cdsProperty": "industry",
+                "fieldName": "Industry"
+            },
+            {
+                "cdsProperty": "clientPersons",
+                "fieldName": "Client Persons"
+            },
+            {
+                "cdsProperty": "openedOn",
+                "fieldName": "Opened On"
+            },
+            {
+                "cdsProperty": "createdBy",
+                "fieldName": "CDS Created By"
+            },
+            {
+                "cdsProperty": "modifiedBy",
+                "fieldName": "CDS Modified By"
+            },
+            {
+                "cdsProperty": "createdOn",
+                "fieldName": "CDS Created On"
+            },
+            {
+                "cdsProperty": "modifiedOn",
+                "fieldName": "CDS Modified On"
+            }
+        ]
+    },
+    {
+        "cdsObject": "ClientPersons",
+        "listName": "Client Persons",
+        "fieldMappings": [
+            {
+                "cdsProperty": "clientPersonType",
+                "fieldName": "Client Person Type"
+            },
+            {
+                "cdsProperty": "personId",
+                "fieldName": "Person"
+            }
+        ]
+    },
+    {
+        "cdsObject": "Matters",
+        "listName": "Matters",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "clientId",
+                "fieldName": "Client Id"
+            },
+            {
+                "cdsProperty": "matterId",
+                "fieldName": "Matter Id"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "status",
+                "fieldName": "Status"
+            },
+            {
+                "cdsProperty": "description",
+                "fieldName": "Description"
+            },
+            {
+                "cdsProperty": "lastBillOn",
+                "fieldName": "Last BillOn"
+            },
+            {
+                "cdsProperty": "openedOn",
+                "fieldName": "Opened On"
+            },
+            {
+                "cdsProperty": "closedOn",
+                "fieldName": "Closed On"
+            },
+            {
+                "cdsProperty": "practiceArea",
+                "fieldName": "Practice"
+            },
+            {
+                "cdsProperty": "office",
+                "fieldName": "Office"
+            },
+            {
+                "cdsProperty": "matterPersons",
+                "fieldName": "Matter Persons"
+            },
+            {
+                "cdsProperty": "createdBy",
+                "fieldName": "CDS Created By"
+            },
+            {
+                "cdsProperty": "modifiedBy",
+                "fieldName": "CDS Modified By"
+            },
+            {
+                "cdsProperty": "createdOn",
+                "fieldName": "CDS Created On"
+            },
+            {
+                "cdsProperty": "modifiedOn",
+                "fieldName": "CDS Modified On"
+            }
+        ]
+    },
+    {
+        "cdsObject": "MatterPersons",
+        "listName": "Matter Persons",
+        "fieldMappings": [
+            {
+                "cdsProperty": "matterPersonType",
+                "fieldName": "Matter Person Type"
+            },
+            {
+                "cdsProperty": "personId",
+                "fieldName": "Person"
+            }
+        ]
+    },
+    {
+        "cdsObject": "Persons",
+        "listName": "CDS Persons",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "personId",
+                "fieldName": "Person Id"
+            },
+            {
+                "cdsProperty": "firstName",
+                "fieldName": "First Name"
+            },
+            {
+                "cdsProperty": "middleName",
+                "fieldName": "Middle Name"
+            },
+            {
+                "cdsProperty": "lastName",
+                "fieldName": "Last Name"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "titles",
+                "fieldName": "Titles"
+            },
+            {
+                "cdsProperty": "defaultTitle",
+                "fieldName": "Default Title"
+            },
+            {
+                "cdsProperty": "email",
+                "fieldName": "Email"
+            },
+            {
+                "cdsProperty": "section",
+                "fieldName": "Section"
+            },
+            {
+                "cdsProperty": "employee",
+                "fieldName": "Employee"
+            },
+            {
+                "cdsProperty": "department",
+                "fieldName": "Department"
+            },
+            {
+                "cdsProperty": "office",
+                "fieldName": "Office"
+            },
+            {
+                "cdsProperty": "practiceAreas",
+                "fieldName": "Practice Areas"
+            },
+            {
+                "cdsProperty": "defaultPracticeArea",
+                "fieldName": "Default Practice Area"
+            },
+            {
+                "cdsProperty": "externalIds",
+                "fieldName": "Person External Ids"
+            },
+            {
+                "cdsProperty": "createdOn",
+                "fieldName": "CDS Created On"
+            },
+            {
+                "cdsProperty": "modifiedOn",
+                "fieldName": "CDS Modified On"
+            },
+            {
+                "cdsProperty": "addresses.country[type=Home]",
+                "fieldName": "Home Country"
+            },
+            {
+                "cdsProperty": "addresses.city[type=Home]",
+                "fieldName": "Home City"
+            },
+            {
+                "cdsProperty": "addresses.streetAddress[type=Home]",
+                "fieldName": "Home Street Address"
+            },
+            {
+                "cdsProperty": "communications.countryCode[type=Home]",
+                "fieldName": "Home Code"
+            },
+            {
+                "cdsProperty": "communications.number[type=Home]",
+                "fieldName": "Home Phone Number"
+            },
+            {
+                "cdsProperty": "communications.extension[type=Home]",
+                "fieldName": "Home Extension"
+            }
+        ]
+    },
+    {
+        "cdsObject": "PersonExternalIds",
+        "listName": "Person External Ids",
+        "fieldMappings": [
+            {
+                "cdsProperty": "externalIdType",
+                "fieldName": "External Id Type"
+            },
+            {
+                "cdsProperty": "externalIdValue",
+                "fieldName": "Value"
+            }
+        ]
+    },
+    {
+        "cdsObject": "Users",
+        "listName": "Users",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "userId",
+                "fieldName": "User Id"
+            },
+            {
+                "cdsProperty": "email",
+                "fieldName": "Email"
+            },
+            {
+                "cdsProperty": "enabled",
+                "fieldName": "Is Active?"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "firstName",
+                "fieldName": "First Name"
+            },
+            {
+                "cdsProperty": "lastName",
+                "fieldName": "Last Name"
+            },
+            {
+                "cdsProperty": "personId",
+                "fieldName": "Person"
+            },
+            {
+                "cdsProperty": "personKey",
+                "fieldName": "Person Key"
+            },
+            {
+                "cdsProperty": "timeZoneId",
+                "fieldName": "Time Zone Id"
+            },
+            {
+                "cdsProperty": "locale",
+                "fieldName": "Locale"
+            },
+            {
+                "cdsProperty": "external",
+                "fieldName": "External"
+            },
+            {
+                "cdsProperty": "userOrigin",
+                "fieldName": "User Origin"
+            },
+            {
+                "cdsProperty": "userIdentityProviderId",
+                "fieldName": "User Identity Provider Id"
+            },
+            {
+                "cdsProperty": "enableOtp",
+                "fieldName": "Enable Otp"
+            },
+            {
+                "cdsProperty": "exchangeUsername",
+                "fieldName": "Exchange Username"
+            },
+            {
+                "cdsProperty": "exchangeHost",
+                "fieldName": "Exchange Host"
+            },
+            {
+                "cdsProperty": "emailAliases",
+                "fieldName": "Email Aliases"
+            },
+            {
+                "cdsProperty": "lastLoginOn",
+                "fieldName": "CDS Last Login On"
+            },
+            {
+                "cdsProperty": "endDate",
+                "fieldName": "CDS End Date"
+            },
+            {
+                "cdsProperty": "createdOn",
+                "fieldName": "CDS Created On"
+            },
+            {
+                "cdsProperty": "modifiedOn",
+                "fieldName": "CDS Modified On"
+            }
+        ]
+    },
+    {
+        "cdsObject": "Roles",
+        "listName": "Roles",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "name"
+            },
+            {
+                "cdsProperty": "description",
+                "fieldName": "Description"
+            },
+            {
+                "cdsProperty": "capabilities",
+                "fieldName": "Capabilities"
+            },
+            {
+                "cdsProperty": "type",
+                "fieldName": "Type"
+            },
+            {
+                "cdsProperty": "readonly",
+                "fieldName": "Readonly"
+            },
+            {
+                "cdsProperty": "createdOn",
+                "fieldName": "InCdsCreatedOn"
+            },
+            {
+                "cdsProperty": "modifiedOn",
+                "fieldName": "InCdsModifiedOn"
+            }
+        ]
+    },
+    {
+        "cdsObject": "Capabilities",
+        "listName": "Capabilities",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "name"
+            },
+            {
+                "cdsProperty": "description",
+                "fieldName": "Description"
+            },
+            {
+                "cdsProperty": "product",
+                "fieldName": "product"
+            },
+            {
+                "cdsProperty": "active",
+                "fieldName": "active"
+            }
+        ]
+    },
+    {
+        "cdsObject": "ClientStatuses",
+        "listName": "Client Statuses",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "active",
+                "fieldName": "Active"
+            },
+            {
+                "cdsProperty": "system",
+                "fieldName": "System"
+            }
+        ]
+    },
+    {
+        "cdsObject": "MatterStatuses",
+        "listName": "Matter Statuses",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "active",
+                "fieldName": "Active"
+            },
+            {
+                "cdsProperty": "system",
+                "fieldName": "System"
+            }
+        ]
+    },
+    {
+        "cdsObject": "Practices",
+        "listName": "Practices",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "active",
+                "fieldName": "Active"
+            },
+            {
+                "cdsProperty": "system",
+                "fieldName": "System"
+            }
+        ]
+    },
+    {
+        "cdsObject": "Offices",
+        "listName": "Offices",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "active",
+                "fieldName": "Active"
+            },
+            {
+                "cdsProperty": "system",
+                "fieldName": "System"
+            }
+        ]
+    },
+    {
+        "cdsObject": "Titles",
+        "listName": "Titles",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "active",
+                "fieldName": "Active"
+            },
+            {
+                "cdsProperty": "system",
+                "fieldName": "System"
+            },
+            {
+                "cdsProperty": "isPartner",
+                "fieldName": "Partner"
+            },
+            {
+                "cdsProperty": "sortOrder",
+                "fieldName": "Sort Order"
+            }
+        ]
+    },
+    {
+        "cdsObject": "Sections",
+        "listName": "Sections",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "active",
+                "fieldName": "Active"
+            },
+            {
+                "cdsProperty": "system",
+                "fieldName": "System"
+            }
+        ]
+    },
+    {
+        "cdsObject": "Departments",
+        "listName": "Departments",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "active",
+                "fieldName": "Active"
+            },
+            {
+                "cdsProperty": "system",
+                "fieldName": "System"
+            }
+        ]
+    },
+    {
+        "cdsObject": "PersonExternalIdTypes",
+        "listName": "Person External Id Types",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "active",
+                "fieldName": "Active"
+            },
+            {
+                "cdsProperty": "system",
+                "fieldName": "System"
+            },
+            {
+                "cdsProperty": "unique",
+                "fieldName": "Unique"
+            }
+        ]
+    },
+    {
+        "cdsObject": "ClientPersonTypes",
+        "listName": "Client Person Types",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "active",
+                "fieldName": "Active"
+            },
+            {
+                "cdsProperty": "system",
+                "fieldName": "System"
+            }
+        ]
+    },
+    {
+        "cdsObject": "MatterPersonTypes",
+        "listName": "Matter Person Types",
+        "fieldMappings": [
+            {
+                "cdsProperty": "key",
+                "fieldName": "Key"
+            },
+            {
+                "cdsProperty": "name",
+                "fieldName": "Name"
+            },
+            {
+                "cdsProperty": "active",
+                "fieldName": "Active"
+            },
+            {
+                "cdsProperty": "system",
+                "fieldName": "System"
+            }
+        ]
+    }
+]
