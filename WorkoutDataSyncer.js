@@ -251,6 +251,7 @@ WorkoutDataSyncer.prototype = {
           values.max_heart_rate = data.max_value;
           values.avg_heart_rate = data.average_value;
           break;
+        case 'pace':
         case 'altitude':
           break;
         default:
