@@ -225,7 +225,7 @@ WorkoutDataSyncer.prototype = {
         case 'elevation':
           break;
         default:
-          console.log('Unexpected slug ' + data.slug);
+          throw 'Unexpected slug ' + data.slug;
       }
     });
 
@@ -251,10 +251,11 @@ WorkoutDataSyncer.prototype = {
           values.max_heart_rate = data.max_value;
           values.avg_heart_rate = data.average_value;
           break;
+        case 'pace':
         case 'altitude':
           break;
         default:
-          console.log('Unexpected slug ' + data.slug);
+          throw 'Unexpected slug ' + data.slug;
       }
     });
 
