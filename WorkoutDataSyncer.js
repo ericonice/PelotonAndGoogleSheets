@@ -225,7 +225,7 @@ WorkoutDataSyncer.prototype = {
         case 'elevation':
           break;
         default:
-          throw 'Unexpected slug ' + data.slug;
+          console.log('Unexpected slug ' + data.slug);
       }
     });
 
@@ -255,7 +255,7 @@ WorkoutDataSyncer.prototype = {
         case 'altitude':
           break;
         default:
-          throw 'Unexpected slug ' + data.slug;
+          console.log('Unexpected slug ' + data.slug);
       }
     });
 
