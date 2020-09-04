@@ -44,7 +44,9 @@ ClassDataSyncer.prototype = {
 
   verify: function (expectedTotal, actualTotal) {
     if (expectedTotal != actualTotal) {
-      throw 'Expected classes (' + expectedTotal + ') is different from actual classes (' + actualTotal + ')';
+      var error = `Expected classes (${expectedTotal}) is different from actual classes (${actualTotal })`;
+      console.log(error);
+      return error;
     }
   },
 
@@ -69,7 +71,7 @@ ClassDataSyncer.prototype = {
     this.spreadsheet.setProperty('lastClassRefreshDate', refreshDate);
     this.spreadsheet.setProperty('lastClassTotal', currentClassCount);
 
-    this.verify(classData.expectedTotal, currentClassCount);
+    var errors = this.verify(classData.expectedTotal, currentClassCount);
 
     return {
       operation: 'Update recent classes',
@@ -77,7 +79,8 @@ ClassDataSyncer.prototype = {
       previousClassCount: this.properties.lastClassTotal,
       addedClasses: newClasses.length,
       expectedTotal: classData.expectedTotal,
-      actualTotal: currentClassCount
+      actualTotal: currentClassCount,
+      errors: errors
     };
   },
 
@@ -97,7 +100,7 @@ ClassDataSyncer.prototype = {
     this.spreadsheet.setProperty('lastClassRefreshDate', refreshDate);
     this.spreadsheet.setProperty('lastClassTotal', currentClassCount);
 
-    this.verify(classData.expectedTotal, currentClassCount);
+    var errors = this.verify(classData.expectedTotal, currentClassCount);
 
     return {
       operation: 'Update all classes',
@@ -105,7 +108,8 @@ ClassDataSyncer.prototype = {
       previousClassCount: this.properties.lastClassTotal,
       addedClasses: newClasses.length,
       expectedTotal: classData.expectedTotal,
-      actualTotal: currentClassCount
+      actualTotal: currentClassCount,
+      errors: errors
     };
   },
 
