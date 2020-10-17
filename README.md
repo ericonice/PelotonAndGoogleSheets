@@ -40,9 +40,9 @@ Copy SpreadsheetIds-template.js as SpreadsheetIds.js and provide real sheet ids 
 1. In Publish->Deploy as web app..., copy the _Current web app url_
 1. In browser, invoke the script by running the _Current web app url_ and adding the _spreadsheet ID_ parameter.  
 **Note, this can take a long time, about 5 minutes for every 1000 workouts.  The google app script has a maximum running time of 5 minutes, so initially the script may need to be run multiple times.** 
-
+    ```
     https://script.google.com/macros/s/{script ID}/exec?id={spreadsheet ID}
-  
+    ```
   
 ## 4. Create the google data sources
 1. Create data source for the workout data
@@ -68,8 +68,9 @@ Google data studio allows you to quickly and relatively easily analyze your data
 1. Map the data source _My Peloton Spreadsheet - Class Data_ to _Class Data_
 1. Edit the report
     * Modify the _Refresh_ link to the following (replacing values to match your IDs):
-    
-        https://script.google.com/macros/s/{script ID}/exec?id={spreadsheet ID}&refreshClasses=false  
+        ```
+        https://script.google.com/macros/s/{script ID}/exec?id={spreadsheet ID}&refreshClasses=false 
+        ```
         This link will refresh the both the workout data and class data
     * Remove what you don't like
     * Add some cool charts
