@@ -61,10 +61,10 @@ Copy SpreadsheetIds-template.js as SpreadsheetIds.js and provide real sheet ids 
     * In subsequent steps, this will be called the _Class Data_ data source
   
 ## 5. Create the google data studio report
-Google data studio allows you to quickly and relatively easily analyze your data.  To help you get started, I am providing a sample report.  However, once you become acquainted with google data studio, you'll like either want to enhance this sample report or even create something entirely new.
+Google data studio allows you to quickly and relatively easily analyze your data.  To help you get started, I am providing a sample report.  However, once you become acquainted with google data studio, you'll likely either want to enhance this sample report or even create something entirely new.
 1. Go to https://datastudio.google.com/u/0/reporting/2ebcd725-dd38-46de-ac64-ed318a7c3961/page/eGeQB
 1. Select _Make a copy of this report_
-1. Map the data source My Peloton Spreadsheet - Workout Data_ to _Workout Data_
+1. Map the data source _My Peloton Spreadsheet - Workout Data_ to _Workout Data_
 1. Map the data source _My Peloton Spreadsheet - Class Data_ to _Class Data_
 1. Edit the report
     * Modify the _Refresh_ link to the following (replacing values to match your IDs):
