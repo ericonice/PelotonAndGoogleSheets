@@ -76,4 +76,15 @@ Google data studio allows you to quickly and relatively easily analyze your data
     * Add some cool charts
     
  
+## 6. Add triggers to project to update the workout and class data
+You can create triggers to automatically update the workout and class data.
+1. From the script editor, choose Edit > Current project's triggers.
+1. Click the link that says: No triggers set up. Click here to add one now.
+1. Under Run, select the name of function you want to trigger.
+1. To refresh workout data for all users, choose _updateAllWorkoutsForEveryone_.  I typically run this daily.
 
+    ![Screenshot for workout data](https://github.com/ericonice/PelotonAndGoogleSheets/images/images/screenshot_for_workouts_trigger.png)  
+
+1. To refresh class data for all users, choose _updateAllClassesForEveryone_.  I typically run this weekly as I am not that interested in the class data.
+
+    ![Screenshot for class data](https://github.com/ericonice/PelotonAndGoogleSheets/images/images/screenshot_for_classes_trigger.png)  
