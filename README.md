@@ -83,8 +83,8 @@ You can create triggers to automatically update the workout and class data.
 1. Under Run, select the name of function you want to trigger.
 1. To refresh workout data for all users, choose _updateAllWorkoutsForEveryone_.  I typically run this daily.
 
-    ![Screenshot for workout data](https://github.com/ericonice/PelotonAndGoogleSheets/images/images/screenshot_for_workouts_trigger.png)  
+    ![Screenshot for workout data](https://github.com/ericonice/PelotonAndGoogleSheets/blob/master/images/screenshot_for_workouts_trigger.png)  
 
 1. To refresh class data for all users, choose _updateAllClassesForEveryone_.  I typically run this weekly as I am not that interested in the class data.
 
-    ![Screenshot for class data](https://github.com/ericonice/PelotonAndGoogleSheets/images/images/screenshot_for_classes_trigger.png)  
+    ![Screenshot for class data](https://github.com/ericonice/PelotonAndGoogleSheets/blob/master/images/screenshot_for_classes_trigger.png)  
