@@ -5,7 +5,6 @@ This project allows you to sync your Peloton data to a google spreadsheet.  You 
 * Create a google data source associated with your google spreadsheet.
 * Create google data studio report
 
-
 ## 1. Create the google spreadsheet which will contain your Peloton data
 1. Create three sheets
     * Workout Data
@@ -13,7 +12,7 @@ This project allows you to sync your Peloton data to a google spreadsheet.  You 
     * Properties
 1. In the Properties sheet, add the following:
     * Row 1, Column A: username
-    * Row 1, Column B: _Your Peloton Username_
+    * Row 1, Column B: _Your_Peloton_Username_
     * Row 2, Column A: password
     * Row 2, Column B: _Your_Peloton_Password_
 1. Note the spreadsheet ID as you will need it later, something like: _1BtKc-FUZnRyii4v7qL-0wxczzAwcV31EBVQpzT18Ax0_
@@ -42,15 +41,37 @@ Copy SpreadsheetIds-template.js as SpreadsheetIds.js and provide real sheet ids 
 1. In browser, invoke the script by running the _Current web app url_ and adding the _spreadsheet ID_ parameter.  
 **Note, this can take a long time, about 5 minutes for every 1000 workouts.  The google app script has a maximum running time of 5 minutes, so initially the script may need to be run multiple times.** 
 
-    https://script.google.com/macros/s/[project ID]/exec?id=[spreadsheetId]
-
-
-    
-    
+    https://script.google.com/macros/s/{project ID}/exec?id={spreadsheetId}
   
- ## 4. Create the google data source
- 
- ## 5. Create the google data studio report
+  
+## 4. Create the google data source
+1. Create data source for the workout data
+    * Go to https://datastudio.google.com
+    * Create->Data Source and select _Google Sheets_
+    * Select the spreadsheet created in step 1
+    * Select the Workout Data sheet     * Select Connect 
+    * In subsequent steps, this will be called the _Workout Data_ data source
+1. Create the data source for the class data
+    * Go to https://datastudio.google.com
+    * Create->Data Source and select _Google Sheets_
+    * Select the spreadsheet created in step 1
+    * Select the Class Data sheet
+    * Select Connect 
+    * In subsequent steps, this will be called the _Class Data_ data source
+  
+## 5. Create the google data studio report
+Google data studio allows you to quickly and relatively easily analyze your data.  To help you get started, I am providing a sample report.  However, once you become acquainted with google data studio, you'll like either want to enhance this sample report or even create something entirely new.
+1. Go to https://datastudio.google.com/u/0/reporting/95f04625-d264-43c2-828c-273a148f094d/page/eGeQB
+1. Select _Make a copy of this report_
+1. Map the data source _Eric's Peloton Data - Workout Data_ to _Workout Data_
+1. Map the data source _Eric's Peloton Data - Class Data_ to _Class Data_
+1. Edit the report
+    * Change the name in the blue header to your name
+    * Modify the _Refresh_ link to the following (replacing values to match your IDs):
+    
+        https://script.google.com/macros/s/{Project ID}/exec?id={spreadsheet ID}&refreshClasses=false        
+    * Remove what you don't like
+    * Add some cool charts
     
  
 
