@@ -18,7 +18,7 @@ This project allows you to sync your Peloton data to a google spreadsheet.  You 
 1. Note the spreadsheet ID as you will need it later, something like: _1BtKc-FUZnRyii4v7qL-0wxczzAwcV31EBVQpzT18Ax0_
 1. Repeat the above for all Peloton users
 
-  ![Screenshot for workout data](https://github.com/ericonice/PelotonAndGoogleSheets/images/images/screenshot_for_spreadsheet.png) 
+  ![Screenshot for spreadsheet](https://github.com/ericonice/PelotonAndGoogleSheets/blob/master/images/screenshot_for_spreadsheet.png) 
 
 ## 2. Create the google app script project
 There are lots of ways to do this, so if you are familiar with google app script, please use your preferred method.  If not, here is a suggested approach.
