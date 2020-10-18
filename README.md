@@ -18,21 +18,23 @@ This project allows you to sync your Peloton data to a google spreadsheet.  You 
 1. Note the spreadsheet ID as you will need it later, something like: _1BtKc-FUZnRyii4v7qL-0wxczzAwcV31EBVQpzT18Ax0_
 1. Repeat the above for all Peloton users
 
+  ![Screenshot for workout data](https://github.com/ericonice/PelotonAndGoogleSheets/images/images/screenshot_for_spreadsheet.png) 
+
 ## 2. Create the google app script project
-There are lots of ways to do this, so if you are familiar with google app scropt, please use your preferred method.  If not, here is a suggested approach.
-Copy SpreadsheetIds-template.js as SpreadsheetIds.js and provide real sheet ids there.
+There are lots of ways to do this, so if you are familiar with google app script, please use your preferred method.  If not, here is a suggested approach.
 1. Install clasp to be able to push local files to google app project (https://github.com/google/clasp) 
 1. Install git to be able to clone this github project
-1. git clone git@github.com:ericonice/PelotonAndGoogleSheets.git MyPelotonProject
-1. cd MyPelotonProject
-1. copy SpreadsheetIds-template.js as SpreadsheetIds.js and provide sheet ID(s) of your google spreadsheet(s).
-1. clasp login
-1. clasp create --type webapp --title "MyPelotonProject" 
-1. clasp push
+1. In a terminal, do the following:
+    1. git clone git@github.com:ericonice/PelotonAndGoogleSheets.git MyPelotonProject
+    1. cd MyPelotonProject
+    1. copy SpreadsheetIds-template.js as SpreadsheetIds.js and provide sheet ID(s) of your google spreadsheet(s).
+    1. clasp login
+    1. clasp create --type webapp --title "MyPelotonProject" 
+    1. clasp push
 
 ## 3. Deploy and test the google app script
 1. Go to https://script.google.com/home
-1. Open the _MyPelotonProject_
+1. Open the project you just created, _MyPelotonProject_
 1. Choose Publish->Deploy as web app...
 1. Select **Update**
     * Select **Review Permissions**
