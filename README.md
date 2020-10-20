@@ -22,12 +22,11 @@ This project allows you to sync your Peloton data to a google spreadsheet.  You 
 
 ## 2. Create the google app script project
 There are lots of ways to do this, so if you are familiar with google app script, please use your preferred method.  If not, here is a suggested approach.
-1. Install clasp to be able to push local files to google app project (https://github.com/google/clasp) 
 1. Dowload the zip file for this github project
 1. Unzip the zip file
     ```
     unzip PelotonAndGoogleSheets-master.zip
-    mv PelotonAndGoogleSheets-master.zip MyPelotonProject
+    mv PelotonAndGoogleSheets-master MyPelotonProject
     cd MyPelotonProject
     cp SpreadsheetIds-template.js SpreadsheetIds.js
     ```
@@ -40,6 +39,11 @@ There are lots of ways to do this, so if you are familiar with google app script
     // The following constanrt are referenced in other files. Don't rename.
     const SpreadSheetIds = [User1SpreadsheetId];
     ```
+1. Install clasp to be able to push local files to google app project (https://developers.google.com/apps-script/guides/clasp). Note, Node.js must be installed in order to use clasp.
+    ```
+    npm install @google/clasp -g
+    ```
+
 1. Create the google app project using clasp:
     ```
     clasp login
