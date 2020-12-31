@@ -85,10 +85,14 @@ ClassDataSyncer.prototype = {
   },
 
   updateAllClassData: function () {
+    // Clear the spreadsheet.  Sometimes classes are purged, so if we don't clear the 
+    // spreadsheet, we may have more classes than actually exist.
+    this.classSheet.clear();
+
     // Create the header row 
     let rows = [ClassProperties];
     this.classSheet.getRange(1, 1, rows.length, rows[0].length).setValues(rows);
-
+    
     // Add the new classes
     let classData = this.getClassData();
     let newClasses = classData.classes;
