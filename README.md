@@ -102,8 +102,13 @@ Google data studio allows you to quickly and relatively easily analyze your data
     * Remove what you don't like
     * Add some cool charts
 
+##### Page 1 of the sample report, which shows comparisons between last 30 days, 90 days, and last year.
 ![Screenshot for 30, 90, Year Comparisons](https://github.com/ericonice/PelotonAndGoogleSheets/blob/master/images/screenshot_for_report_page1.png) 
+
+##### Page 2 of the sample report, which shows data for the current year, comparing with the previous year.
 ![Screenshot for This Year](https://github.com/ericonice/PelotonAndGoogleSheets/blob/master/images/screenshot_for_report_page2.png) 
+
+##### Page 3 of the sample report, which shows the most recent workouts filtered by FTP tests.
 ![Screenshot for Most Recent Workouts](https://github.com/ericonice/PelotonAndGoogleSheets/blob/master/images/screenshot_for_report_page3.png) 
 
  
