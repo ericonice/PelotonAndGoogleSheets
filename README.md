@@ -1,9 +1,15 @@
 # PelotonAndGoogleSheets
 
 This project allows you to sync your Peloton data to a google spreadsheet.  You can then use google data studio, connected to the google spreadsheets data source, to analyze your Peloton data.  In order for this to work, you will need to do the following:
-* Create google app script which will add your peloton data to a google spreadsheet
+* Create a google app script which will add your peloton data to a google spreadsheet
 * Create a google data source associated with your google spreadsheet
-* Create google data studio report
+* Create a google data studio report
+
+*Warning*: These steps are not straight forward. There are already lots of cool ways to look at your Peloton data, including mPaceLine.  I'd say this is more for someone who:
+* Has particular requirements about how they want to view their data
+* Enjoys creating and playing with charts to analyze their data
+* Has experience with one or more of github, spreadsheets, google app script or programming
+* Is not easily frustrated when the below instructions are not as clear as they should be
 
 ## 1. Create the google spreadsheet which will contain your Peloton data
 1. Create three sheets
@@ -66,14 +72,14 @@ There are lots of ways to do this, so if you are familiar with google app script
     ```
   
 ## 4. Create the google data sources
-1. Create data source for the workout data
+1. Create data source for the workout data.  This is the data associated with the workouts that you have taken.
     * Go to https://datastudio.google.com
     * Create->Data Source and select _Google Sheets_
     * Select the spreadsheet created in step 1
     * Select the Workout Data sheet     
     * Select Connect 
     * In subsequent steps, this will be called the _Workout Data_ data source
-1. Create the data source for the class data
+1. Create the data source for the class data.  This is the data associted with the Peloton classes, not necessarily ones that you have taken.  This was initially created to be able to determine which classes had not been taken (before Peloton added that feature to filter by classes not taken). 
     * Go to https://datastudio.google.com
     * Create->Data Source and select _Google Sheets_
     * Select the spreadsheet created in step 1
@@ -83,7 +89,7 @@ There are lots of ways to do this, so if you are familiar with google app script
   
 ## 5. Create the google data studio report
 Google data studio allows you to quickly and relatively easily analyze your data.  To help you get started, I am providing a sample report.  However, once you become acquainted with google data studio, you'll likely either want to enhance this sample report or even create something entirely new.
-1. Go to https://datastudio.google.com/u/0/reporting/2ebcd725-dd38-46de-ac64-ed318a7c3961/page/eGeQB
+1. Go to https://datastudio.google.com/u/0/reporting/06e9dce8-6c63-42ee-a262-c02a4122d0bd/page/eGeQB
 1. Select _Make a copy of this report_
 1. Map the data source _My Peloton Spreadsheet - Workout Data_ to _Workout Data_
 1. Map the data source _My Peloton Spreadsheet - Class Data_ to _Class Data_
