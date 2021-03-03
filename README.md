@@ -101,7 +101,11 @@ Google data studio allows you to quickly and relatively easily analyze your data
         This link will refresh the both the workout data and class data
     * Remove what you don't like
     * Add some cool charts
-    
+
+![Screenshot for 30, 90, Year Comparisons](https://github.com/ericonice/PelotonAndGoogleSheets/blob/master/images/screenshot_for_report_page1.png) 
+![Screenshot for This Year](https://github.com/ericonice/PelotonAndGoogleSheets/blob/master/images/screenshot_for_report_page2.png) 
+![Screenshot for Most Recent Workouts](https://github.com/ericonice/PelotonAndGoogleSheets/blob/master/images/screenshot_for_report_page3.png) 
+
  
 ## 6. Add triggers to project to update the workout and class data
 You can create triggers to automatically update the workout and class data.
