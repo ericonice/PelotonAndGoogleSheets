@@ -17,7 +17,8 @@ const WorkoutProperties = [
   'overall_rating_avg',
   'overall_rating_count',
   'rating',
-  'total_workouts'
+  'total_workouts',
+  'strive'
 ];
 
 const MetricProperties = [
@@ -180,6 +181,9 @@ WorkoutDataSyncer.prototype = {
             break;
           case 'powerzone_type':
             row.push(getPowerzoneType(ride.title));
+            break;
+          case 'strive':
+            row.push(d.effort_zones?.total_effort_points);
             break;
           default:
             row.push(ride[value]);
